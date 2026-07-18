@@ -22,8 +22,8 @@ import W50Summit from "./Pages/W50Summit";
 import AboutUs from "./Pages/AboutUs";
 
 
-import Login from "./pages/authPage/Login";
-import ForgotPassword from "./pages/authPage/ForgotPassword";
+import Login from "./Pages/authPage/Login";
+import ForgotPassword from "./Pages/authPage/ForgotPassword";
 import Dashboard from "./adminCompotents/dashboard/Dashboard";
 
 
