@@ -180,7 +180,7 @@ const AboutWLC = () => {
               <img
                 src={img}
                 alt="World Leaders Consortium"
-                className="wlc-image w-full h-[420px] sm:h-[480px] md:h-[560px] lg:h-[600px] object-cover"
+                className="wlc-image w-full h-[280px] sm:h-[480px] md:h-[560px] lg:h-[450px] object-contain"
               />
               <div
                 aria-hidden="true"
