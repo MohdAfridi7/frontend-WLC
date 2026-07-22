@@ -10,7 +10,7 @@ import {
   ChevronDown,
   Loader2,
 } from "lucide-react";
-import { getAllBlogs, getBlogBySlug, getRelatedBlogs } from "../../src/api/blogRoutes";
+import { getAllBlogs, getBlogBySlug, getRecentBlogs } from "../../src/api/blogRoutes";
 // ^ update this import path to wherever these live
 
 const STEP = 4;
@@ -102,7 +102,7 @@ export default function NewsMedia() {
   const [detailLoading, setDetailLoading] = useState(false);
   const [detailError, setDetailError] = useState(false);
 
-  // ---- Related posts (GET related by id) ----
+  // ---- Recent posts (GET recent, excluding the open post) ----
   const [relatedPosts, setRelatedPosts] = useState([]);
   const [relatedLoading, setRelatedLoading] = useState(false);
 
@@ -112,8 +112,12 @@ export default function NewsMedia() {
       try {
         const res = await getAllBlogs();
         const list = Array.isArray(res) ? res : res?.data || [];
+        const arr = Array.isArray(list) ? list : [list];
+        const sorted = [...arr].sort(
+          (a, b) => new Date(b.postDate) - new Date(a.postDate)
+        );
         if (isMounted) {
-          setPosts((Array.isArray(list) ? list : [list]).map(mapBlogToPost));
+          setPosts(sorted.map(mapBlogToPost));
           setListError(false);
         }
       } catch (err) {
@@ -148,10 +152,15 @@ export default function NewsMedia() {
 
         setRelatedLoading(true);
         try {
-          const relRes = await getRelatedBlogs(blog._id || blog.id);
-          const relList = Array.isArray(relRes) ? relRes : relRes?.data || [];
+          const recRes = await getRecentBlogs();
+          const recList = Array.isArray(recRes) ? recRes : recRes?.data || [];
+          const currentId = blog._id || blog.id;
+          const filtered = (Array.isArray(recList) ? recList : [recList])
+            .filter((b) => (b._id || b.id) !== currentId)
+            .sort((a, b) => new Date(b.postDate) - new Date(a.postDate))
+            .slice(0, 3);
           if (isMounted) {
-            setRelatedPosts((Array.isArray(relList) ? relList : [relList]).map(mapBlogToPost));
+            setRelatedPosts(filtered.map(mapBlogToPost));
           }
         } catch {
           if (isMounted) setRelatedPosts([]);
@@ -329,10 +338,6 @@ function ListView({ posts, hasMore, onShowMore, onOpen }) {
   className="absolute inset-0 h-full w-full object-cover grayscale-[15%] transition-all duration-[900ms] ease-out group-hover:scale-[1.04] group-hover:grayscale-0"
 />
               <div className="absolute inset-0 bg-gradient-to-tr from-slate-900/60 via-slate-900/10 to-transparent" />
-              <div className="absolute left-0 top-0 flex items-center gap-2 border-b-2 border-r-2 border-white bg-blue-600 px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.25em] text-white">
-                <span className="h-1.5 w-1.5 animate-pulse bg-white" />
-                Lead Story
-              </div>
               <div className="absolute bottom-4 left-4 font-display text-[100px] leading-none text-white/20">
                 01
               </div>
@@ -341,20 +346,9 @@ function ListView({ posts, hasMore, onShowMore, onOpen }) {
             <div className="relative flex flex-col justify-between border-t-2 border-slate-900 bg-[#f4f1ea] p-6 text-slate-900 sm:p-10 md:border-l-2 md:border-t-0">
               <div>
                 <div className="mb-5 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">
-                  <span className="bg-slate-900 px-2 py-1 text-white">
-                    {featured.category}
-                  </span>
                   <span className="inline-flex items-center gap-1.5">
                     <Calendar className="h-3 w-3" />
                     {featured.date}
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <Clock className="h-3 w-3" />
-                    {featured.readTime}
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <User className="h-3 w-3" />
-                    {featured.author}
                   </span>
                 </div>
 
@@ -398,9 +392,6 @@ function ListView({ posts, hasMore, onShowMore, onOpen }) {
                 loading="lazy"
                 className="h-full w-full object-cover grayscale-[20%] transition-all duration-700 ease-out group-hover:scale-[1.06] group-hover:grayscale-0"
               />
-              <div className="absolute left-0 top-0 bg-blue-600 px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-white">
-                {p.category}
-              </div>
             </div>
 
             <div className="flex flex-1 flex-col p-6">
@@ -408,16 +399,6 @@ function ListView({ posts, hasMore, onShowMore, onOpen }) {
                 <span className="inline-flex items-center gap-1.5">
                   <Calendar className="h-3 w-3" />
                   {p.date}
-                </span>
-                <span className="text-slate-400">/</span>
-                <span className="inline-flex items-center gap-1.5">
-                  <Clock className="h-3 w-3" />
-                  {p.readTime}
-                </span>
-                <span className="text-slate-400">/</span>
-                <span className="inline-flex items-center gap-1.5">
-                  <User className="h-3 w-3" />
-                  {p.author}
                 </span>
               </div>
 
@@ -476,21 +457,10 @@ function DetailView({ post, related, relatedLoading, onBack, onOpen }) {
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_320px] lg:gap-12">
         <article className="border-2 border-slate-900 bg-[#faf7f0] p-6 shadow-[8px_8px_0_0_#2563eb] sm:p-10">
           <div className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">
-            <span className="bg-blue-600 px-2 py-1 text-white">
-              {post.category}
-            </span>
             <span className="inline-flex items-center gap-1.5">
               <Calendar className="h-3 w-3" />
               {post.date}
             </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Clock className="h-3 w-3" />
-              {post.readTime}
-            </span>
-             <span className="inline-flex items-center gap-1.5">
-    <User className="h-3 w-3" />
-    {post.author}
-  </span>
           </div>
 
           <h1 className="font-display text-4xl font-normal leading-[1.02] tracking-tight text-slate-900 sm:text-5xl md:text-6xl">
@@ -672,9 +642,6 @@ function DetailView({ post, related, relatedLoading, onBack, onOpen }) {
                       />
                     </div>
                     <div className="flex-1">
-                      <div className="mb-1 font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-blue-600">
-                        {r.category}
-                      </div>
                       <h4 className="line-clamp-2 font-display text-sm font-normal leading-snug text-slate-900 transition-colors group-hover:text-blue-600">
                         {r.title}
                       </h4>

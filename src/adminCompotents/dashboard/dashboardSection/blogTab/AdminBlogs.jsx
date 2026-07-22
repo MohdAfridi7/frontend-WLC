@@ -3,7 +3,6 @@ import toast, { Toaster } from "react-hot-toast";
 import {
   ArrowUpRight,
   Calendar,
-  Clock,
   Plus,
   Pencil,
   Trash2,
@@ -13,8 +12,6 @@ import {
   Inbox,
   RefreshCw,
   ImagePlus,
-  User,
-  Tag,
   Link2,
   Bold,
   Italic,
@@ -29,12 +26,9 @@ import { createBlog, getAllBlogs, updateBlog, deleteBlog } from "../../../../api
 
 const emptyForm = {
   title: "",
-  authorName: "",
-  category: "",
   postDate: "",
   shortDescription: "",
   content: "",
-  readTime: "",
 };
 
 const formatDate = (value) =>
@@ -141,9 +135,7 @@ export default function AdminBlogs() {
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
     if (!q) return blogs;
-    return blogs.filter((b) =>
-      [b.title, b.category, b.authorName].filter(Boolean).some((f) => f.toLowerCase().includes(q))
-    );
+    return blogs.filter((b) => (b.title || "").toLowerCase().includes(q));
   }, [blogs, search]);
 
   // ---------- Modal helpers ----------
@@ -159,12 +151,9 @@ export default function AdminBlogs() {
     setEditingId(blog._id);
     setForm({
       title: blog.title || "",
-      authorName: blog.authorName || "",
-      category: blog.category || "",
       postDate: blog.postDate ? blog.postDate.slice(0, 10) : "",
       shortDescription: blog.shortDescription || "",
       content: blog.content || "",
-      readTime: blog.readTime || "",
     });
     setImageFile(null);
     setImagePreview(blog.image || "");
@@ -271,7 +260,7 @@ export default function AdminBlogs() {
         type="text"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        placeholder="Search title, category..."
+        placeholder="Search title..."
         className="w-full rounded-lg border border-slate-200 bg-white py-2 pl-9 pr-3 text-sm text-slate-700 shadow-sm outline-none transition focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 sm:w-56"
       />
     </div>
@@ -331,10 +320,6 @@ export default function AdminBlogs() {
                   </div>
                 )}
                 <div className="absolute inset-0 bg-gradient-to-tr from-slate-900/60 via-slate-900/10 to-transparent" />
-                <div className="absolute left-0 top-0 flex items-center gap-2 border-b-2 border-r-2 border-white bg-blue-600 px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.25em] text-white">
-                  <span className="h-1.5 w-1.5 animate-pulse bg-white" />
-                  Lead Story
-                </div>
 
                 {/* Edit / Delete */}
                 <CardActions
@@ -347,12 +332,8 @@ export default function AdminBlogs() {
               <div className="relative flex flex-col justify-between border-t-2 border-slate-900 bg-[#f4f1ea] p-6 text-slate-900 sm:p-10 md:border-l-2 md:border-t-0">
                 <div>
                   <div className="mb-5 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">
-                    <span className="bg-slate-900 px-2 py-1 text-white">{featured.category || "General"}</span>
                     <span className="inline-flex items-center gap-1.5">
                       <Calendar className="h-3 w-3" /> {formatDate(featured.postDate)}
-                    </span>
-                    <span className="inline-flex items-center gap-1.5">
-                      <Clock className="h-3 w-3" /> {featured.readTime}
                     </span>
                   </div>
 
@@ -366,7 +347,7 @@ export default function AdminBlogs() {
                 </div>
 
                 <div className="mt-8 inline-flex w-fit items-center gap-3 border-b-2 border-blue-600 pb-1 font-mono text-xs font-bold uppercase tracking-[0.2em] text-blue-600">
-                  By {featured.authorName || "Unknown"}
+                  Read Full Story
                   <ArrowUpRight className="h-4 w-4" />
                 </div>
               </div>
@@ -401,9 +382,6 @@ export default function AdminBlogs() {
                       <ImagePlus className="h-8 w-8 text-slate-300" />
                     </div>
                   )}
-                  <div className="absolute left-0 top-0 bg-blue-600 px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-white">
-                    {p.category || "General"}
-                  </div>
 
                   <CardActions
                     isDeleting={deletingId === p._id}
@@ -417,10 +395,6 @@ export default function AdminBlogs() {
                     <span className="inline-flex items-center gap-1.5">
                       <Calendar className="h-3 w-3" /> {formatDate(p.postDate)}
                     </span>
-                    <span className="text-slate-400">/</span>
-                    <span className="inline-flex items-center gap-1.5">
-                      <Clock className="h-3 w-3" /> {p.readTime}
-                    </span>
                   </div>
 
                   <h3 className="font-display text-2xl font-normal leading-[1.1] tracking-tight text-slate-900">
@@ -433,7 +407,7 @@ export default function AdminBlogs() {
 
                   <div className="mt-6 flex items-center justify-between border-t-2 border-slate-900/10 pt-4">
                     <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-blue-600">
-                      By {p.authorName || "Unknown"}
+                      Continue Reading
                     </span>
                     <div className="flex h-9 w-9 items-center justify-center border-2 border-slate-900 bg-white text-slate-900">
                       <ArrowUpRight className="h-4 w-4" />
@@ -494,70 +468,20 @@ focus:ring-indigo-100"
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="mb-1 flex items-center gap-1.5 text-xs font-medium text-slate-600">
-                    <User className="h-3.5 w-3.5" /> Author
-                  </label>
-                  <input
-                    id="authorName"
-                    value={form.authorName}
-                    onChange={handleChange}
-                    disabled={saving}
-                    placeholder="Author name"
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-indigo-500
+              <div>
+                <label className="mb-1 flex items-center gap-1.5 text-xs font-medium text-slate-600">
+                  <Calendar className="h-3.5 w-3.5" /> Post Date
+                </label>
+                <input
+                  id="postDate"
+                  type="date"
+                  value={form.postDate}
+                  onChange={handleChange}
+                  disabled={saving}
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-indigo-500
 focus:ring-2
 focus:ring-indigo-100"
-                  />
-                </div>
-                <div>
-                  <label className="mb-1 flex items-center gap-1.5 text-xs font-medium text-slate-600">
-                    <Tag className="h-3.5 w-3.5" /> Category
-                  </label>
-                  <input
-                    id="category"
-                    value={form.category}
-                    onChange={handleChange}
-                    disabled={saving}
-                    placeholder="e.g. Energy"
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-indigo-500
-focus:ring-2
-focus:ring-indigo-100"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="mb-1 flex items-center gap-1.5 text-xs font-medium text-slate-600">
-                    <Calendar className="h-3.5 w-3.5" /> Post Date
-                  </label>
-                  <input
-                    id="postDate"
-                    type="date"
-                    value={form.postDate}
-                    onChange={handleChange}
-                    disabled={saving}
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-indigo-500
-focus:ring-2
-focus:ring-indigo-100"
-                  />
-                </div>
-                <div>
-                  <label className="mb-1 flex items-center gap-1.5 text-xs font-medium text-slate-600">
-                    <Clock className="h-3.5 w-3.5" /> Read Time
-                  </label>
-                  <input
-                    id="readTime"
-                    value={form.readTime}
-                    onChange={handleChange}
-                    disabled={saving}
-                    placeholder="e.g. 6 Min Read"
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-indigo-500
-focus:ring-2
-focus:ring-indigo-100"
-                  />
-                </div>
+                />
               </div>
 
               <div>

@@ -267,7 +267,7 @@ const OurWorkSection = () => {
         </div>
 
         {/* ============ Pillars / Verticals ============ */}
-        <div className="mt-24 md:mt-32">
+        {/* <div className="mt-24 md:mt-32">
           <motion.div
             variants={fadeUp}
             initial="hidden"
@@ -327,7 +327,7 @@ const OurWorkSection = () => {
               );
             })}
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* bottom diagonal accent */}
