@@ -110,25 +110,7 @@ const GlobalDialogue = () => {
               </div>
             </motion.div>
 
-            {/* live / on-air chip — top-right */}
-            <motion.div
-              initial={{ opacity: 0, y: -16 }}
-              animate={
-                inView
-                  ? { opacity: 1, y: 0, transition: { delay: 0.5, duration: 0.6 } }
-                  : {}
-              }
-              className="absolute top-6 right-6 md:top-10 md:right-10 flex items-center gap-2 bg-white px-3 py-1.5 shadow-xl"
-              data-testid="dialogue-onair-chip"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4B67D1] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#4B67D1]" />
-              </span>
-              <span className="font-geist text-[10px] md:text-xs uppercase tracking-[0.3em] text-[#4B67D1] font-medium">
-                On Air · WLC
-              </span>
-            </motion.div>
+           
 
             {/* big pull-quote glyph */}
             <div
