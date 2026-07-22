@@ -455,7 +455,7 @@ function DetailView({ post, related, relatedLoading, onBack, onOpen }) {
       </motion.button>
 
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_320px] lg:gap-12">
-        <article className="border-2 border-slate-900 bg-[#faf7f0] p-6 shadow-[8px_8px_0_0_#2563eb] sm:p-10">
+        <article className="border-2 border-slate-900 bg-white p-6 shadow-[8px_8px_0_0_#2563eb] sm:p-10">
           <div className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">
             <span className="inline-flex items-center gap-1.5">
               <Calendar className="h-3 w-3" />
