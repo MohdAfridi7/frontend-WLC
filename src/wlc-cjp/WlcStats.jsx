@@ -33,25 +33,26 @@ const WlcStats = () => {
   const [direction, setDirection] = useState(1); // for slide transition
   const [fullscreen, setFullscreen] = useState(false);
 
+  const pdfUrl =
+  "https://img1.wsimg.com/blobby/go/b6c56996-d063-4e20-930c-1d8a40821864/Membership%20Drive_20260510_115051_0000.pdf";
   const slides = [
-    { image: img,   pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img1,  pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img2,  pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img3,  pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img4,  pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img5,  pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img6,  pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img7,  pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img8,  pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img9,  pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img10, pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img11, pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img12, pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img13, pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img14, pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img15, pdf: "/pdfs/wlc-membership.pdf" },
-  ];
-
+  { image: img, pdf: pdfUrl },
+  { image: img1, pdf: pdfUrl },
+  { image: img2, pdf: pdfUrl },
+  { image: img3, pdf: pdfUrl },
+  { image: img4, pdf: pdfUrl },
+  { image: img5, pdf: pdfUrl },
+  { image: img6, pdf: pdfUrl },
+  { image: img7, pdf: pdfUrl },
+  { image: img8, pdf: pdfUrl },
+  { image: img9, pdf: pdfUrl },
+  { image: img10, pdf: pdfUrl },
+  { image: img11, pdf: pdfUrl },
+  { image: img12, pdf: pdfUrl },
+  { image: img13, pdf: pdfUrl },
+  { image: img14, pdf: pdfUrl },
+  { image: img15, pdf: pdfUrl },
+];
   const nextSlide = useCallback(() => {
     setDirection(1);
     setCurrent((prev) => (prev + 1) % slides.length);
@@ -145,8 +146,9 @@ const WlcStats = () => {
           <a
             data-testid="download-pdf-btn"
             href={slides[current].pdf}
-            target="_blank"
-            rel="noreferrer"
+  target="_blank"
+  rel="noopener noreferrer"
+  download
             className="group inline-flex items-center gap-3 rounded-full border border-[#4F6EF7]/25 bg-white px-6 py-3 text-[#4F6EF7] font-semibold shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#4F6EF7]/60 hover:shadow-[0_15px_35px_-15px_rgba(79,110,247,0.55)]"
           >
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#4F6EF7]/10 transition-colors duration-300 group-hover:bg-[#4F6EF7] group-hover:text-white">

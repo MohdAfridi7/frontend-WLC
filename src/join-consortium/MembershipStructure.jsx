@@ -22,15 +22,18 @@ const Seal = ({ className = "" }) => (
 const MembershipStructure = () => {
   const [current, setCurrent] = useState(0);
 
-  const slides = [
-    { image: img, pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img1, pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img2, pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img3, pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img4, pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img5, pdf: "/pdfs/wlc-membership.pdf" },
-    { image: img6, pdf: "/pdfs/wlc-membership.pdf" },
-  ];
+  const pdfUrl =
+  "https://img1.wsimg.com/blobby/go/b6c56996-d063-4e20-930c-1d8a40821864/Membership%20Drive_20260510_115051_0000.pdf";
+
+const slides = [
+  { image: img, pdf: pdfUrl },
+  { image: img1, pdf: pdfUrl },
+  { image: img2, pdf: pdfUrl },
+  { image: img3, pdf: pdfUrl },
+  { image: img4, pdf: pdfUrl },
+  { image: img5, pdf: pdfUrl },
+  { image: img6, pdf: pdfUrl },
+];
 
   const nextSlide = () => setCurrent((prev) => (prev + 1) % slides.length);
   const prevSlide = () => setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
@@ -125,11 +128,12 @@ const MembershipStructure = () => {
           </div>
 
           <a
-            href={slides[current].pdf}
-            target="_blank"
-            rel="noreferrer"
-            className="group flex items-center gap-3 border border-slate-200 bg-white px-5 py-3 transition-colors hover:border-[#4F6EF7]"
-          >
+  href={slides[current].pdf}
+  target="_blank"
+  rel="noopener noreferrer"
+  download
+  className="group flex items-center gap-3 border border-slate-200 bg-white px-5 py-3 transition-colors hover:border-[#4F6EF7]"
+>
             <div>
               <span className="f-mono block text-[10px] uppercase tracking-widest text-[#4F6EF7]">Document</span>
               <span className="mt-0.5 block text-sm text-slate-700">Download Membership PDF</span>
