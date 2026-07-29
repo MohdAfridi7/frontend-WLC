@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ChevronDown, MapPin, Phone, Mail, Clock, ArrowRight, X, Send, Loader2 } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 import { createContact } from "../api/contactRoutes";
+import img from '../../public/image/ha18.webp'
 // ^ update this import path to wherever createContact lives
 
 /* ============ INLINE SLIDE CONTACT FORM ============ */
@@ -224,7 +225,7 @@ export default function ContactSection() {
       className="relative py-16 lg:py-24 bg-cover bg-center"
       style={{
         backgroundImage:
-          "url('https://img1.wsimg.com/isteam/getty/674124214/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:1600,m')",
+          `url(${img})`,
       }}
     >
       <Toaster position="top-right" toastOptions={{ duration: 3500 }} />

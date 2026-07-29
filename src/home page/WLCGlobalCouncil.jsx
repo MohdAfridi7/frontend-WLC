@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
+import img from '../../public/image/ha3.webp'
 import {
   ArrowUpRight,
   Globe,
@@ -142,7 +143,7 @@ const WLCGlobalCouncil = () => {
               {/* badge image */}
               <div className="absolute inset-16 sm:inset-20 rounded-full overflow-hidden bg-white shadow-[0_20px_60px_-20px_rgba(75,103,209,0.45)]">
                 <img
-                  src="https://img1.wsimg.com/isteam/ip/b6c56996-d063-4e20-930c-1d8a40821864/1000396704.png/:/cr=t:12.42%25,l:7.01%25,w:64.94%25,h:64.94%25/rs=w:800,cg:true,m"
+                  src={img}
                   alt="WLC Global Council"
                   className="w-full h-full object-cover transition-transform duration-[1400ms] ease-out hover:scale-105"
                 />

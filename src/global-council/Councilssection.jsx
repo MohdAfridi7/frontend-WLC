@@ -11,6 +11,7 @@ import {
   Network,
   Handshake,
 } from "lucide-react";
+import img from '../../public/image/ha13.jpg'
 
 export default function CouncilsSection() {
   const stats = [
@@ -105,7 +106,7 @@ export default function CouncilsSection() {
             {/* Image card */}
             <div className="relative overflow-hidden shadow-2xl ring-1 ring-black/10 group">
               <img
-                src="https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=800&h=500&fit=crop"
+                src={img}
                 alt="World Leaders Consortium Councils"
                 className="w-full h-[300px] md:h-[380px] object-cover transition-transform duration-700 group-hover:scale-105"
               />

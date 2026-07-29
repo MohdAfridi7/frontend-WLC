@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Quote, ArrowUpRight, BadgeCheck } from "lucide-react";
+import img from '../../public/image/ha5.webp'
 
 const AboutWlc = () => {
   return (
@@ -86,23 +87,13 @@ const AboutWlc = () => {
               {/* Image */}
               <div className="relative overflow-hidden">
                 <img
-                  src="https://img1.wsimg.com/isteam/ip/b6c56996-d063-4e20-930c-1d8a40821864/1000519841-9ce0475.jpg/:/cr=t:1.57%25,l:33.37%25,w:56.87%25,h:97.22%25/rs=w:800,h:602,cg:true,m"
+                  src={img}
                   alt="Dr Rajat Shrivastava, President, WLC"
                   className="h-[520px] w-full object-cover transition-transform duration-[6000ms] hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#44536C]/40 via-transparent to-transparent" />
 
-                {/* Floating badge */}
-                <div className="floatY absolute right-4 top-4 flex items-center gap-2 border border-white/30 bg-white/85 px-3 py-2 backdrop-blur">
-                  <BadgeCheck size={14} className="text-[#4B67D1]" />
-                  <span
-                    className="text-[10px] font-medium uppercase tracking-[0.3em] text-[#44536C]"
-                    style={{ fontFamily: "Inter, sans-serif" }}
-                  >
-                    Since 2025
-                  </span>
-                </div>
-
+                
                 {/* Bottom name plate */}
                 <div className="absolute inset-x-4 bottom-4 border border-white/20 bg-white/90 p-4 backdrop-blur">
                   <span className="text-[10px] uppercase tracking-[0.3em] text-[#4B67D1]">

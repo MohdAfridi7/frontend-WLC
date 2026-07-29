@@ -15,6 +15,7 @@ import {
   Scale,
   ArrowUpRight,
 } from "lucide-react";
+import img from '../../public/image/ha14.jpg'
 
 /* ====== DATA ====== */
 const councils = [
@@ -177,7 +178,7 @@ export default function OurCouncils() {
               {/* Image */}
               <div className="relative overflow-hidden shadow-2xl ring-1 ring-black/10">
                 <img
-                  src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=800&h=500&fit=crop"
+                  src={img}
                   alt="World Leaders Consortium Councils"
                   className="w-full h-[320px] object-cover"
                 />

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import img from '../../public/image/ha11.webp'
 
 /* Recurring signature mark — a seal/emblem motif that ties the whole
    section together, echoing the credential a global body issues its members. */
@@ -118,7 +119,7 @@ const MembershipSection = () => {
               <div className="absolute -top-3 -left-3 h-6 w-6 border-t border-l border-[#4F6EF7]" />
               <div className="absolute -bottom-3 -right-3 h-6 w-6 border-b border-r border-[#4F6EF7]" />
               <img
-                src="https://img1.wsimg.com/isteam/ip/b6c56996-d063-4e20-930c-1d8a40821864/1000410228.jpg/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:800,cg:true"
+                src={img}
                 alt="WLC Membership Showcase"
                 className="h-auto w-full object-cover"
               />

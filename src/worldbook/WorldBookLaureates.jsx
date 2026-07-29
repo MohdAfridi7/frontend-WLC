@@ -1,5 +1,6 @@
 
 import React from "react";
+import img from '../../public/image/ha16.webp'
 
 const C = {
   brand: "#4567E6",
@@ -158,7 +159,7 @@ const WorldBookLaureates = () => {
             <div className="absolute -bottom-4 -right-4 w-32 h-32" style={{ background: C.brand }} />
             <div className="relative">
               <img
-                src="https://img1.wsimg.com/isteam/ip/b6c56996-d063-4e20-930c-1d8a40821864/1000164122.jpg/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:1024,cg:true"
+                src={img}
                 alt="World Book of Laureates"
                 className="w-full h-[420px] md:h-[540px] object-cover relative z-10"
               />

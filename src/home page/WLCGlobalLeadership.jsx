@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
+import img from '../../public/image/ha2.webp'
 import {
   ArrowUpRight,
   Landmark,
@@ -248,7 +249,7 @@ const WLCGlobalLeadership = () => {
               {/* image */}
               <div className="relative overflow-hidden bg-white">
                 <img
-                  src="https://img1.wsimg.com/isteam/ip/b6c56996-d063-4e20-930c-1d8a40821864/1000097155.jpg/:/cr=t:0%25,l:3.13%25,w:93.75%25,h:100%25/rs=w:1200,h:1600,cg:true"
+                  src={img}
                   alt="WLC Global Team"
                   className="w-full h-[420px] sm:h-[520px] md:h-[600px] lg:h-[640px] object-cover transition-transform duration-[1400ms] ease-out hover:scale-[1.04]"
                 />
@@ -256,47 +257,12 @@ const WLCGlobalLeadership = () => {
                 {/* duotone wash */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#4B67D1]/40 via-transparent to-transparent pointer-events-none" />
 
-                {/* corner tag */}
-                <div className="absolute top-4 left-4 md:top-6 md:left-6 bg-white px-3 py-1.5">
-                  <span className="font-geist text-[10px] md:text-xs uppercase tracking-[0.3em] text-[#4B67D1] font-medium">
-                    The Global Team
-                  </span>
-                </div>
+               
 
-                {/* caption card */}
-                <div className="absolute left-0 right-0 bottom-0 p-5 md:p-7">
-                  <div className="bg-white border-l-4 border-[#4B67D1] p-4 md:p-5 max-w-md shadow-2xl">
-                    <p className="font-editorial text-gray-900 text-xl md:text-2xl leading-tight">
-                      One consortium,
-                      <br />
-                      <span className="italic text-[#4B67D1]">many disciplines.</span>
-                    </p>
-                    <p className="mt-2 font-geist text-xs md:text-[13px] text-gray-600 leading-relaxed">
-                      A working network of policymakers, innovators, journalists,
-                      educators and diplomats convened by the WLC.
-                    </p>
-                  </div>
-                </div>
+              
               </div>
 
-              {/* floating Vol. chip */}
-              <motion.div
-                initial={{ opacity: 0, y: 24, rotate: -3 }}
-                animate={
-                  inView
-                    ? { opacity: 1, y: 0, rotate: -3, transition: { delay: 0.8, duration: 0.7 } }
-                    : {}
-                }
-                className="hidden md:block absolute -top-6 -left-6 bg-[#4B67D1] text-white px-5 py-4 shadow-2xl"
-                data-testid="leadership-floating-chip"
-              >
-                <div className="font-editorial italic text-2xl leading-none">
-                  Issue 04
-                </div>
-                <div className="font-geist text-[10px] uppercase tracking-[0.3em] mt-1 opacity-90">
-                  Masthead · 2026
-                </div>
-              </motion.div>
+             
             </motion.div>
           </div>
         </div>

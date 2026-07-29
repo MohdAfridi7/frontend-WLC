@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import img from '../../public/image/ha4.webp'
 import {
   ArrowUpRight,
   Globe2,
@@ -120,7 +121,7 @@ const FoundingStory = () => {
         <div className="fadeUp relative mb-20 overflow-hidden rounded-none">
           <div className="relative aspect-[21/9] w-full overflow-hidden">
             <img
-              src="https://img1.wsimg.com/isteam/getty/179243711/:/cr=t:0.48%25,l:6.63%25,w:87.44%25,h:87.44%25/rs=w:2480,cg:true,m"
+              src={img}
               alt="World Flags"
               className="h-full w-full object-cover transition-transform duration-[6000ms] hover:scale-105"
             />

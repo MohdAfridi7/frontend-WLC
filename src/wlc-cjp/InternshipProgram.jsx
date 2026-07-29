@@ -1,6 +1,7 @@
 
 
 import React from "react";
+import img from '../../public/image/ha15.webp'
 
 /**
  * WLC Global Internship Program — Premium Edition
@@ -91,7 +92,7 @@ const InternshipProgram = () => {
               />
               <div className="relative overflow-hidden rounded-2xl bg-white p-2 shadow-[0_20px_60px_-15px_rgba(79,110,247,0.35)] ring-1 ring-black/5">
                 <img
-                  src="https://img1.wsimg.com/isteam/ip/b6c56996-d063-4e20-930c-1d8a40821864/1000410234.jpg/:/cr=t:5.52%25,l:0%25,w:100%25,h:88.97%25/rs=w:800,h:400,cg:true"
+                  src={img}
                   alt="Internship"
                   className="w-full rounded-xl object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
                 />

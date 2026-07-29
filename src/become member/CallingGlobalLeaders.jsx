@@ -1,6 +1,7 @@
 
 
 import React from "react";
+import img from '../../public/image/ha12.webp'
 import {
   Landmark,
   Globe2,
@@ -108,7 +109,7 @@ const CallingGlobalLeaders = () => {
 
             <div className="relative w-full max-w-[440px] overflow-hidden shadow-2xl ring-1 ring-black/5 group">
               <img
-                src="https://img1.wsimg.com/isteam/ip/b6c56996-d063-4e20-930c-1d8a40821864/1000410232.png/:/cr=t:23.13%25,l:13.96%25,w:66.67%25,h:66.67%25/rs=w:800,cg:true,m"
+                src={img}
                 alt="WLC"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />

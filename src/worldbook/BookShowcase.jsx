@@ -1,4 +1,5 @@
 import React from "react";
+import img from '../../public/image/ha17.webp'
 
 const BookShowcase = () => {
   return (
@@ -15,7 +16,7 @@ const BookShowcase = () => {
 
           <div className="flex justify-center lg:justify-end">
             <img
-              src="https://img1.wsimg.com/isteam/ip/b6c56996-d063-4e20-930c-1d8a40821864/1000164119.jpg/:/cr=t:5.65%25,l:0.02%25,w:99.96%25,h:89.19%25/rs=w:2560,h:3413"
+              src={img}
               alt="World Book of Laureates"
               className="w-full max-w-[520px] object-contain"
             />

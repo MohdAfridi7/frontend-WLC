@@ -1,4 +1,9 @@
 import React, { useEffect } from "react";
+import img from '../../public/image/ha7.webp'
+import img1 from '../../public/image/ha8.webp'
+import img2 from '../../public/image/ha9.webp'
+import img3 from '../../public/image/ha10.webp'
+
 
 const OurWorkWLC = () => {
   // Inject premium editorial fonts dynamically (Cormorant Garamond & Plus Jakarta Sans)
@@ -51,7 +56,7 @@ const OurWorkWLC = () => {
             <div className="absolute -bottom-4 -right-4 w-24 h-24 border-b-2 border-r-2 border-[#4169e1]/30 pointer-events-none rounded-br-xl" />
             <div className="overflow-hidden rounded-2xl bg-white p-4 shadow-xl border border-gray-100 transition-transform duration-500 hover:scale-[1.01]">
               <img
-                src="https://img1.wsimg.com/isteam/getty/2012703290/:/cr=t:1.78%25,l:7.26%25,w:85.48%25,h:96.44%25/rs=w:1200,h:902,cg:true,m"
+                src={img}
                 alt="Our Work"
                 className="w-full h-[360px] sm:h-[450px] object-cover rounded-xl filter saturate-[0.9]"
               />
@@ -141,7 +146,7 @@ const OurWorkWLC = () => {
             <div className="absolute -bottom-4 -right-4 w-24 h-24 border-b-2 border-r-2 border-[#4169e1]/30 pointer-events-none rounded-br-xl" />
             <div className="overflow-hidden rounded-2xl bg-white p-4 shadow-xl border border-gray-100 transition-transform duration-500 hover:scale-[1.01]">
               <img
-                src="https://img1.wsimg.com/isteam/ip/b6c56996-d063-4e20-930c-1d8a40821864/1000472390.png/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:1200,cg:true"
+                src={img1}
                 alt="Global Summit"
                 className="w-full h-[360px] sm:h-[450px] object-cover rounded-xl filter saturate-[0.9]"
               />
@@ -158,7 +163,7 @@ const OurWorkWLC = () => {
             <div className="absolute -bottom-4 -right-4 w-24 h-24 border-b-2 border-r-2 border-[#4169e1]/30 pointer-events-none rounded-br-xl" />
             <div className="overflow-hidden rounded-2xl bg-white p-4 shadow-xl border border-gray-100 transition-transform duration-500 hover:scale-[1.01] h-full">
               <img
-                src="https://img1.wsimg.com/isteam/ip/b6c56996-d063-4e20-930c-1d8a40821864/1000472411.png/:/cr=t:0%25,l:6.93%25,w:86.13%25,h:86.13%25/rs=w:1200,cg:true,m"
+                src={img2}
                 alt="Youth Leadership"
                 className="w-full h-full min-h-[360px] lg:min-h-[550px] object-cover rounded-xl filter saturate-[0.9]"
               />
@@ -292,7 +297,7 @@ const OurWorkWLC = () => {
             <div className="absolute -bottom-4 -right-4 w-24 h-24 border-b-2 border-r-2 border-[#4169e1]/30 pointer-events-none rounded-br-xl" />
             <div className="overflow-hidden rounded-2xl bg-white p-6 sm:p-8 shadow-xl border border-gray-100 transition-transform duration-500 hover:scale-[1.01]">
               <img
-                src="https://img1.wsimg.com/isteam/ip/b6c56996-d063-4e20-930c-1d8a40821864/1000256061.png/:/rs=w:720,cg:true,m"
+                src={img3}
                 alt="SDG Goals"
                 className="w-full h-[320px] sm:h-[400px] object-contain rounded-xl"
               />

@@ -1,6 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
+import img from '../../public/image/ha6.webp'
 import {
   Phone,
   Mail,
@@ -92,7 +93,7 @@ const About1 = () => {
             <div className="relative lg:col-span-5">
               <div className="relative h-[420px] w-full overflow-hidden lg:h-full lg:min-h-[560px]">
                 <img
-                  src="https://img1.wsimg.com/isteam/ip/b6c56996-d063-4e20-930c-1d8a40821864/1000231116.jpg/:/cr=t:8.15%25,l:0%25,w:100%25,h:60.15%25/rs=w:800,h:602,cg:true"
+                  src={img}
                   alt="Monalisa Alfonso"
                   className="h-full w-full object-cover transition-transform duration-[6000ms] hover:scale-105"
                 />
@@ -101,15 +102,7 @@ const About1 = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#44536C]/50 via-transparent to-transparent" />
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/20" />
 
-                {/* Floating role badge */}
-                <div className="floatY absolute right-4 top-4 border border-white/30 bg-white/90 px-4 py-2 backdrop-blur">
-                  <span
-                    className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#4B67D1]"
-                    style={{ fontFamily: "Inter, sans-serif" }}
-                  >
-                    Private Secretariat
-                  </span>
-                </div>
+                
 
                 {/* Bottom name plate */}
                 <div className="absolute inset-x-4 bottom-4 border border-white/30 bg-white/95 p-4 backdrop-blur">
