@@ -2,7 +2,7 @@
 import { NavLink, Link } from "react-router-dom";
 import { ChevronDown, Menu, X, ArrowUpRight, Globe, Mail } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
-import logo from "../assets/logo.png";
+import logo from "../../public/WLC Logo/Main.png";
 
 const leftLinks = [
   { name: "Home", path: "/" },
