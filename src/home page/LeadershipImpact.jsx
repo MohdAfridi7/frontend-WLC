@@ -2,6 +2,7 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Quote, ArrowUpRight, BadgeCheck } from "lucide-react";
+import img from '../../public/image/ha2.jpeg'
 
 /* ---------- animation variants ---------- */
 const fadeUp = {
@@ -121,7 +122,7 @@ const LeadershipImpact = () => {
               {/* portrait */}
               <div className="relative overflow-hidden bg-[#3a55d4]">
                 <img
-                  src="https://img1.wsimg.com/isteam/ip/b6c56996-d063-4e20-930c-1d8a40821864/1000511703.png/:/cr=t:0%25,l:0%25,w:96.14%25,h:100%25/rs=w:1280,h:1280"
+                  src={img}
                   alt="Paolo Rondelli, Former President of San Marino"
                   className="w-full h-[380px] sm:h-[480px] md:h-[560px] lg:h-[640px] object-cover transition-transform duration-[1400ms] ease-out hover:scale-[1.04]"
                 />
@@ -129,24 +130,8 @@ const LeadershipImpact = () => {
                 {/* duotone overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#4967e8]/60 via-transparent to-transparent pointer-events-none" />
 
-                {/* corner tag */}
-                <div className="absolute top-4 left-4 md:top-6 md:left-6 bg-white px-3 py-1.5">
-                  <span className="font-geist text-[10px] md:text-xs uppercase tracking-[0.3em] text-[#4967e8] font-medium">
-                    Portrait · 2026
-                  </span>
-                </div>
 
-                {/* name plate at bottom */}
-                <div className="absolute bottom-0 left-0 right-0 p-5 md:p-7">
-                  <div className="bg-white/95 backdrop-blur border-l-4 border-[#4967e8] p-4 md:p-5 max-w-md shadow-2xl">
-                    <p className="font-editorial text-gray-900 text-xl md:text-2xl leading-tight">
-                      Paolo Rondelli
-                    </p>
-                    <p className="mt-1.5 font-geist text-[11px] md:text-xs uppercase tracking-[0.25em] text-gray-500">
-                      Former Captain Regent · San Marino
-                    </p>
-                  </div>
-                </div>
+               
               </div>
 
              

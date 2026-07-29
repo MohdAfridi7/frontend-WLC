@@ -10,6 +10,8 @@ import {
   Users,
 } from "lucide-react";
 
+import img from '../../public/image/ha1.jpeg'
+
 /* ---------- animation variants ---------- */
 const fadeUp = {
   hidden: { opacity: 0, y: 36 },
@@ -213,55 +215,19 @@ const OurWorkSection = () => {
               {/* image */}
               <div className="relative overflow-hidden bg-white">
                 <img
-                  src="https://img1.wsimg.com/isteam/ip/b6c56996-d063-4e20-930c-1d8a40821864/1000503243-a3a1e79.jpg/:/cr=t:5.36%25,l:5.36%25,w:89.29%25,h:89.29%25/rs=w:900,m"
+                  src={img}
                   alt="WLC Chapter Ambassador of Cyprus meeting the President of Cyprus"
                   className="w-full h-[320px] sm:h-[440px] md:h-[540px] lg:h-[620px] object-cover transition-transform duration-[1200ms] ease-out hover:scale-[1.04]"
                 />
                 {/* subtle bottom gradient */}
                 <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/45 to-transparent pointer-events-none" />
 
-                {/* corner index badge */}
-                <div className="absolute top-4 left-4 md:top-6 md:left-6 bg-white/95 backdrop-blur px-3 py-1.5">
-                  <span className="font-geist text-[10px] md:text-xs uppercase tracking-[0.3em] text-gray-700">
-                    Field Report · Cyprus
-                  </span>
-                </div>
+               
 
-                {/* caption */}
-                <div className="absolute left-0 right-0 bottom-0 p-5 md:p-7">
-                  <div className="bg-white border-l-4 border-[#4b67e8] p-4 md:p-5 max-w-xl shadow-xl">
-                    <p className="font-editorial text-gray-900 text-base md:text-lg leading-snug">
-                      “A constructive, forward-looking dialogue.”
-                    </p>
-                    <p className="mt-2 font-geist text-xs md:text-[13px] text-gray-600 leading-relaxed">
-                      WLC Chapter Ambassador of Cyprus,{" "}
-                      <span className="font-semibold text-gray-900">
-                        Mr. Vassilios Demetriades
-                      </span>
-                      , in dialogue with President Nikos Christodoulides.
-                    </p>
-                  </div>
-                </div>
+            
               </div>
 
-              {/* floating editorial chip — bottom-right */}
-              <motion.div
-                initial={{ opacity: 0, y: 30, rotate: -2 }}
-                animate={
-                  inView
-                    ? { opacity: 1, y: 0, rotate: -2, transition: { delay: 0.7, duration: 0.7 } }
-                    : {}
-                }
-                className="hidden md:block absolute -bottom-8 -right-6 bg-[#4b67e8] text-white px-5 py-4 shadow-2xl"
-                data-testid="our-work-floating-chip"
-              >
-                <div className="font-editorial italic text-2xl leading-none">
-                  Vol. XII
-                </div>
-                <div className="font-geist text-[10px] uppercase tracking-[0.3em] mt-1 opacity-90">
-                  Spring · 2026
-                </div>
-              </motion.div>
+          
             </motion.div>
           </div>
         </div>
