@@ -106,7 +106,7 @@ const SkeletonCard = () => (
   </div>
 );
 
-export default function GfetscPage() {
+export default function Gfetscpage() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
