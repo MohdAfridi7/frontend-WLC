@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import {
@@ -39,6 +38,7 @@ const resourceLinks = [
   { name: "News & Media", path: "/news-media" },
   { name: "Global Updates", path: "/global-updates" },
   { name: "World Book Of Laureates", path: "/world-book-laureates" },
+  { name: "GFETSC", path: "/gfetsc" },
   { name: "FAQs", path: "/faqs" },
   { name: "Disclaimer", path: "/disclaimer" },
   { name: "Terms & Policy", path: "/terms-policy" },

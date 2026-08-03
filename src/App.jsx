@@ -25,6 +25,7 @@ import AboutUs from "./Pages/AboutUs";
 import Login from "./Pages/authPage/Login";
 import ForgotPassword from "./Pages/authPage/ForgotPassword";
 import Dashboard from "./adminCompotents/dashboard/Dashboard";
+import GFETSC from "./Pages/GFETSC";
 
 
 function App() {
@@ -50,6 +51,8 @@ function App() {
         <Route path="/faqs" element={<Faqs/>} />
         <Route path="/contact-us" element={<Contact/>} />
         <Route path="/w50-global-summit" element={<W50Summit/>} />
+        <Route path="/gfetsc" element={<GFETSC/>} />
+
 
         <Route path="/login" element={<Login />} />
 {/* <Route path="/verify-otp" element={<VerifyOtp />} /> */}

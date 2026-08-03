@@ -8,6 +8,7 @@ import {
   FiBookOpen,
   FiMail,
   FiLogOut,
+  FiX,
 } from "react-icons/fi";
 import logo from "../../assets/logo.png";
 
@@ -18,6 +19,7 @@ const menuItems = [
   { label: "Our Team", icon: FiUsers },
   { label: "Global Summits", icon: FiGlobe },
   { label: "Global Updates", icon: FiGlobe },
+  { label: "GFETSC", icon: FiGlobe },
   { label: "Blogs", icon: FiBookOpen },
   { label: "Contacts Data", icon: FiMail },
   { label: "Change Email", icon: FiMail },

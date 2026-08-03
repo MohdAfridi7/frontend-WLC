@@ -13,6 +13,8 @@ import OurTeam from './TeamPages';
 import GlobalUpdates from './GlobalUpdates';
 import GlobalSummits from './Summitpage';
 import ChangeEmail from './dashboardSection/changeEmailTab/ChnageEmail';
+import GfetscPage from './GfetscPage';
+// ^ update this import path to wherever GfetscPage.jsx lives
 
 function Dashboard() {
 const token = localStorage.getItem("token");
@@ -67,6 +69,8 @@ const navigate = useNavigate();
         return <GlobalSummits/>;
            case 'Global Updates':
         return <GlobalUpdates/>;
+        case 'GFETSC':
+        return <GfetscPage/>;
         case 'Blogs':
         return <AdminBlogs/>;
       case 'Contacts Data':
