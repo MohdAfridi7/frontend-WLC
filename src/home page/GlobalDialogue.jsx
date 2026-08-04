@@ -87,28 +87,7 @@ const GlobalDialogue = () => {
               className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"
             />
 
-            {/* corner editorial tag — top-left */}
-            <motion.div
-              variants={fadeUp}
-              custom={1}
-              initial="hidden"
-              animate={inView ? "show" : "hidden"}
-              className="absolute top-6 left-6 md:top-10 md:left-10 flex items-center gap-3"
-              data-testid="dialogue-issue-tag"
-            >
-              <span className="font-editorial italic text-white text-5xl md:text-6xl leading-none">
-                06
-              </span>
-              <span className="h-px w-10 bg-white/50" />
-              <div>
-                <p className="font-geist text-[10px] md:text-xs uppercase tracking-[0.35em] text-white/90">
-                  Broadcast · Dialogues
-                </p>
-                <p className="font-geist text-[10px] md:text-xs uppercase tracking-[0.3em] text-white/60 mt-1">
-                  One-to-One · Series
-                </p>
-              </div>
-            </motion.div>
+           
 
            
 
