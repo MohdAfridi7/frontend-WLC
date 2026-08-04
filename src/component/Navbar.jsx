@@ -18,6 +18,9 @@ const moreItems = [
   { name: "News & Media", path: "/news-media" },
   { name: "Become A Member", path: "/become-member" },
   { name: "Our Team", path: "/our-team" },
+  { name: "Permanent-Members", path: "/permanent-members" },
+
+
   { name: "Global Updates", path: "/global-updates" },
   { name: "Global Dialogue", path: "/global-dialogue" },
   { name: "Global Councils", path: "/global-councils" },
@@ -25,6 +28,7 @@ const moreItems = [
   { name: "World Book Of Laureates", path: "/world-book-laureates" },
   { name: "FAQs", path: "/faqs" },
   { name: "Contact Us", path: "/contact-us" },
+  
   { name: "W50 Global Summit", path: "/w50-global-summit" },
 ];
 

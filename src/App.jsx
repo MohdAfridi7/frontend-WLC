@@ -26,6 +26,7 @@ import Login from "./Pages/authPage/Login";
 import ForgotPassword from "./Pages/authPage/ForgotPassword";
 import Dashboard from "./adminCompotents/dashboard/Dashboard";
 import GFETSC from "./Pages/GFETSC";
+import Permanent from "./Pages/Permanent";
 
 
 function App() {
@@ -43,6 +44,8 @@ function App() {
         <Route path="/news-media" element={<NewsMedia/>} />
         <Route path="/become-member" element={<BecomeMember/>} />
         <Route path="/our-team" element={<OurTeam/>} />
+        <Route path="/permanent-members" element={<Permanent/>} />
+
         <Route path="/global-updates" element={<GlobalUpdates/>} />
         <Route path="/global-dialogue" element={<GlobalDialogue/>} />
         <Route path="/global-councils" element={<GlobalCouncils/>} />
