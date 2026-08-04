@@ -27,6 +27,8 @@ import ForgotPassword from "./Pages/authPage/ForgotPassword";
 import Dashboard from "./adminCompotents/dashboard/Dashboard";
 import GFETSC from "./Pages/GFETSC";
 import Permanent from "./Pages/Permanent";
+import Disclaimer from "./Pages/Disclaimer";
+import TermPolicy from "./Pages/TermPolicy";
 
 
 function App() {
@@ -52,6 +54,9 @@ function App() {
         <Route path="/wlc-gip" element={<WLCGIP/>} />
         <Route path="/world-book-laureates" element={<WorldBook/>} />
         <Route path="/faqs" element={<Faqs/>} />
+        <Route path="/disclaimer" element={<Disclaimer/>} />
+        <Route path="/terms-policy" element={<TermPolicy/>} />
+
         <Route path="/contact-us" element={<Contact/>} />
         <Route path="/w50-global-summit" element={<W50Summit/>} />
         <Route path="/gfetsc" element={<GFETSC/>} />
