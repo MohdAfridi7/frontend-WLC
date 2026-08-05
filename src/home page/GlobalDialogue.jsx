@@ -70,7 +70,7 @@ const GlobalDialogue = () => {
           className="relative lg:col-span-7 order-1"
           data-testid="dialogue-image-panel"
         >
-          <div className="relative w-full h-[340px] sm:h-[440px] lg:h-full lg:min-h-[720px] overflow-hidden">
+          <div className="relative w-full h-[440px] sm:h-[940px] lg:h-full lg:min-h-[900px] overflow-hidden">
             <img
               src={img}
               alt="WLC Global Dialogue"
