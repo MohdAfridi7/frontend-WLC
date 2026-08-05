@@ -270,7 +270,7 @@ export default function FirstSummit() {
               )}
 
               {!loading && day1.length > 0 && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
                   {day1.map((s) => (
                     <SummitCard key={s._id} summit={s} />
                   ))}
@@ -293,7 +293,7 @@ export default function FirstSummit() {
             )}
 
             {!loading && day2.length > 0 && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
                 {day2.map((s) => (
                   <SummitCard key={s._id} summit={s} />
                 ))}
@@ -307,7 +307,7 @@ export default function FirstSummit() {
               <div className="max-w-6xl mx-auto px-6 py-14">
                 <Eyebrow>More</Eyebrow>
                 <H2 className="mb-8">More from the Summit</H2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
                   {noDay.map((s) => (
                     <SummitCard key={s._id} summit={s} />
                   ))}
