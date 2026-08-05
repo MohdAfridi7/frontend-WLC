@@ -160,21 +160,7 @@ export default function GlobalDialogues() {
               </p>
             </div>
 
-            {/* Topic chips */}
-            <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-8">
-              {topics.map(({ icon: Icon, label }) => (
-                <div
-                  key={label}
-                  className="inline-flex items-center gap-2 bg-white ring-1 ring-[#4D6AE8]/20 px-3.5 py-2 text-xs font-semibold text-[#1A1F36] shadow-sm hover:bg-[#4D6AE8] hover:text-white hover:ring-[#4D6AE8] transition-all cursor-default"
-                >
-                  <Icon className="w-3.5 h-3.5 text-[#4D6AE8] group-hover:text-white" />
-                  {label}
-                </div>
-              ))}
-              <div className="inline-flex items-center px-3.5 py-2 text-xs font-semibold text-gray-500">
-                + 5 more themes
-              </div>
-            </div>
+            
 
             {/* CTA button */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
@@ -194,14 +180,7 @@ export default function GlobalDialogues() {
                 <ArrowRight className="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-1" />
               </button>
 
-              <div className="flex items-center gap-2 text-xs text-gray-500 font-medium">
-                <span className="flex -space-x-2">
-                  <span className="w-6 h-6 rounded-full bg-[#4D6AE8] ring-2 ring-white" />
-                  <span className="w-6 h-6 rounded-full bg-[#1A1F36] ring-2 ring-white" />
-                  <span className="w-6 h-6 rounded-full bg-[#4D6AE8]/60 ring-2 ring-white" />
-                </span>
-                <span>500+ leaders already registered</span>
-              </div>
+             
             </div>
           </div>
         </div>

@@ -227,17 +227,7 @@ const handleFileChange = (e) => {
             {/* Divider */}
             <div className="lg:col-span-2 mt-4 pt-8 border-t border-gray-100">
               {/* Captcha */}
-              <p className="text-center text-gray-500 text-xs md:text-sm leading-7 max-w-2xl mx-auto">
-                This site is protected by reCAPTCHA and the Google
-                <span className="text-[#4F6EF7] cursor-pointer hover:underline">
-                  {" "}Privacy Policy{" "}
-                </span>
-                and
-                <span className="text-[#4F6EF7] cursor-pointer hover:underline">
-                  {" "}Terms of Service
-                </span>{" "}
-                apply.
-              </p>
+          
 
               {/* Button */}
               <div className="flex justify-center mt-8">

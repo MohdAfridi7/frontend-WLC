@@ -11,6 +11,7 @@ import GlobalDiplomacySection from '../home page/GlobalDiplomacySection'
 import WLCGlobalLeadership from '../home page/WLCGlobalLeadership'
 import WLCGlobalCouncil from '../home page/WLCGlobalCouncil'
 import GlobalDialogue from '../home page/GlobalDialogue'
+
 // import SocialMarquee from '../home page/SocialMarquee'
 
 
@@ -20,6 +21,7 @@ function Home() {
    <HeroSection/>
    {/* <NewsTicker/> */}
    <AboutWLC/>
+  
    <FeaturedVideo/>
    <BlogCarousel/>
    <OurWorkSection/>
