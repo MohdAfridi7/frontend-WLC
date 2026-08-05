@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Sparkles,
   TrendingUp,
@@ -280,13 +281,13 @@ const CouncilsContent = () => {
 
               {/* Contact row */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-6 pt-6 border-t border-white/10">
-                <a
-                  href="#"
-                  className="group inline-flex items-center gap-2 bg-[#4F6EF7] hover:bg-[#3d57d1] text-white font-bold tracking-[0.2em] uppercase text-xs px-6 py-3 shadow-lg shadow-[#4F6EF7]/30 hover:shadow-xl hover:shadow-[#4F6EF7]/50 hover:-translate-y-0.5 transition-all"
-                >
-                  Apply Now
-                  <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
+               <Link
+  to="/contact-us"
+  className="group inline-flex items-center gap-2 bg-[#4F6EF7] hover:bg-[#3d57d1] text-white font-bold tracking-[0.2em] uppercase text-xs px-6 py-3 shadow-lg shadow-[#4F6EF7]/30 hover:shadow-xl hover:shadow-[#4F6EF7]/50 hover:-translate-y-0.5 transition-all"
+>
+  Apply Now
+  <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+</Link>
 
                 <span className="text-gray-400 text-xs uppercase tracking-widest">
                   or write to us

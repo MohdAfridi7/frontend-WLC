@@ -15,7 +15,7 @@ import {
   Scale,
   ArrowUpRight,
 } from "lucide-react";
-import img from '../../public/image/ha14.jpg'
+import img from '../../public/image/ca2.webp'
 
 /* ====== DATA ====== */
 const councils = [
@@ -192,24 +192,7 @@ export default function OurCouncils() {
                   }}
                 />
 
-                {/* Top tag */}
-                <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 shadow flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#4F6EF7] animate-pulse" />
-                  <span className="text-[10px] font-bold tracking-[0.2em] text-[#4F6EF7] uppercase">
-                    Active Council
-                  </span>
-                </div>
-
-                {/* Bottom overlay: active council */}
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <div className="flex items-center gap-2 text-white/80 text-[10px] font-bold tracking-[0.25em] uppercase mb-2">
-                    <span className="w-6 h-px bg-white/40" />
-                    Council 0{activeId % 10 || 10}
-                  </div>
-                  <h3 className="text-white text-xl font-bold leading-tight drop-shadow-lg">
-                    {councils.find((c) => c.id === activeId)?.title}
-                  </h3>
-                </div>
+               
               </div>
             </div>
 

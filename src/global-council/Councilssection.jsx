@@ -11,7 +11,7 @@ import {
   Network,
   Handshake,
 } from "lucide-react";
-import img from '../../public/image/ha13.jpg'
+import img from '../../public/image/ca1.webp'
 
 export default function CouncilsSection() {
   const stats = [
@@ -108,7 +108,7 @@ export default function CouncilsSection() {
               <img
                 src={img}
                 alt="World Leaders Consortium Councils"
-                className="w-full h-[300px] md:h-[380px] object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-[200px] md:h-[320px] object-cover transition-transform duration-700 group-hover:scale-105"
               />
               {/* Gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#1A1F36]/70 via-[#1A1F36]/10 to-transparent" />
@@ -121,54 +121,12 @@ export default function CouncilsSection() {
                 }}
               />
 
-              {/* Top tag */}
-              <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 shadow flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#4F6EF7]" />
-                <span className="text-[10px] font-bold tracking-[0.2em] text-[#4F6EF7] uppercase">
-                  Think Tanks
-                </span>
-              </div>
+              
 
-              {/* Bottom overlay content */}
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <p className="text-white/80 text-[10px] font-bold tracking-[0.25em] uppercase mb-1">
-                  WLC Global Councils
-                </p>
-                <h3 className="text-white text-xl font-bold leading-tight">
-                  70+ Countries. One Mission.
-                </h3>
-              </div>
+             
             </div>
 
-            {/* Stats row */}
-            <div className="grid grid-cols-3 gap-3 mt-6">
-              {stats.map(({ icon: Icon, value, label }) => (
-                <div
-                  key={label}
-                  className="relative bg-white ring-1 ring-black/5 shadow-sm px-3 py-4 text-center overflow-hidden group hover:shadow-lg hover:shadow-[#4F6EF7]/15 hover:-translate-y-0.5 transition-all"
-                >
-                  <div
-                    className="absolute inset-0 opacity-[0.05] group-hover:opacity-10 transition-opacity"
-                    style={{
-                      backgroundImage:
-                        "radial-gradient(#4F6EF7 1px, transparent 1px)",
-                      backgroundSize: "10px 10px",
-                    }}
-                  />
-                  <div className="relative">
-                    <div className="w-8 h-8 mx-auto mb-2 bg-gradient-to-br from-[#4F6EF7] to-[#3d57d1] flex items-center justify-center">
-                      <Icon className="w-4 h-4 text-white" />
-                    </div>
-                    <p className="text-[#1A1F36] font-black text-xl leading-none">
-                      {value}
-                    </p>
-                    <p className="text-[10px] uppercase tracking-wider text-gray-500 font-semibold mt-1">
-                      {label}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
+           
           </div>
 
           {/* ===== RIGHT: Content ===== */}
@@ -281,15 +239,7 @@ export default function CouncilsSection() {
               </div>
             </div>
 
-            {/* CTA link */}
-            <a
-              href="#"
-              className="group inline-flex items-center gap-2 mt-8 text-[#4F6EF7] font-bold uppercase tracking-[0.2em] text-sm hover:gap-3 transition-all"
-            >
-              Explore All Councils
-              <span className="w-8 h-px bg-[#4F6EF7] group-hover:w-12 transition-all" />
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
+           
           </div>
         </div>
       </div>
