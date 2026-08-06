@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, ArrowRight, ArrowLeft, Clock } from "lucide-react";
-import { getRecentBlogs } from "../api/blogRoutes";
+import { ArrowUpRight, ArrowRight, ArrowLeft } from "lucide-react";
+import { getAllBlogs } from "../api/blogRoutes";
 // ^ update this import path to wherever getAllBlogs lives
 
 const formatDate = (value) =>
@@ -18,14 +18,12 @@ function stripHtml(html = "") {
 // API blog object → the shape this component's JSX expects
 function mapBlogToItem(b) {
   return {
-    id: b._id || b.id,
-    date: formatDate(b.postDate),
-    category: b.category,
-    title: b.title,
+    id: b._id,
     image: b.image,
+    title: b.title,
+    date: formatDate(b.postDate),
     excerpt: b.shortDescription,
     content: b.content,
-    author: b.authorName,
   };
 }
 
@@ -43,7 +41,7 @@ const BlogCarousel = () => {
 
   const fetchBlogs = async () => {
     try {
-      const res = await getRecentBlogs();
+      const res = await getAllBlogs();
 
       const list = res?.data || [];
 
@@ -202,14 +200,6 @@ const BlogCarousel = () => {
 
                         <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.3em] text-neutral-500">
                           {featured.date}
-                          {featured.category && (
-                            <>
-                              <span className="mx-3">·</span>
-                              <span className="text-neutral-900">{featured.category}</span>
-                            </>
-                          )}
-                          <span className="mx-3">·</span>
-                              <span className="text-neutral-900">{featured.author}</span>
                         </p>
 
                         
@@ -257,7 +247,6 @@ const BlogCarousel = () => {
                         <div className="flex-1">
                           <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.3em] text-neutral-500">
                             {b.date}
-                            {b.category && (<><span className="mx-2">·</span><span>{b.category}</span></>)}
                           </p>
                           <h4
                             className="font-serif text-xl leading-snug text-neutral-900 transition-colors group-hover:text-blue-600 md:text-2xl"
@@ -299,7 +288,6 @@ const BlogDetail = ({ blog, allBlogs, onBack, onSelect }) => {
   if (!blog) return null;
 
   const others = allBlogs.filter((b) => b.id !== blog.id).slice(0, 4);
-  const readMins = Math.max(2, Math.round(stripHtml(blog.content || "").split(/\s+/).filter(Boolean).length / 200));
 
   return (
     <motion.article
@@ -313,15 +301,11 @@ const BlogDetail = ({ blog, allBlogs, onBack, onSelect }) => {
           <ArrowLeft size={16} className="transition-transform duration-300 group-hover:-translate-x-1" />
           Back to journal
         </button>
-        <span className="font-mono text-[11px] uppercase tracking-[0.3em] text-neutral-500">
-          {blog.category || "Article"}
-        </span>
       </div>
 
       <header className="mx-auto max-w-4xl text-center">
         <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.3em] text-blue-600">
           {blog.date}
-          {blog.author && (<><span className="mx-3 text-neutral-300">·</span><span className="text-neutral-500">By {blog.author}</span></>)}
         </p>
 
         <h1
@@ -334,10 +318,6 @@ const BlogDetail = ({ blog, allBlogs, onBack, onSelect }) => {
         {blog.excerpt && (
           <p className="mt-6 text-lg leading-relaxed text-neutral-600 md:text-xl">{blog.excerpt}</p>
         )}
-
-        <div className="mt-8 inline-flex items-center gap-2 text-sm text-neutral-500">
-          <Clock size={14} /> {readMins} min read
-        </div>
       </header>
 
       <div className="mt-14 overflow-hidden bg-neutral-100">
