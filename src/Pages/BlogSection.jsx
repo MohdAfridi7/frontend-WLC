@@ -300,7 +300,7 @@ export default function BlogSection() {
             variants={fadeUp}
             className="mt-5 font-serif text-4xl font-light leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-[3.65rem]"
           >
-            ARTICLES &amp; COLUMNS
+            WLC Global Activities
           </motion.h2>
           <motion.div
             variants={fadeUp}

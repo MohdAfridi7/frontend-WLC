@@ -4,12 +4,7 @@ const GlobalLeadershipBanner = () => {
   return (
     <section
       className="relative w-full h-[180px] sm:h-[220px] md:h-[280px] lg:h-[340px] overflow-hidden"
-      style={{
-        backgroundImage:
-          "url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=2070&auto=format&fit=crop')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
+    
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/45"></div>
