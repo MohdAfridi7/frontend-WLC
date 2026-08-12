@@ -16,10 +16,11 @@ const rightLinks = [
 const moreItems = [
   { name: "Join The Consortium", path: "/join-consortium" },
   { name: "News & Media", path: "/news-media" },
+    { name: "Advisory Blogs", path: "/wlc-blogs" },
   { name: "Become A Member", path: "/become-member" },
   { name: "Our Team", path: "/our-team" },
   { name: "Permanent-Members", path: "/permanent-members" },
-
+ { name: "Advisory Counciler", path: "/advisory-council" },
 
   { name: "Global Updates", path: "/global-updates" },
   { name: "Global Dialogue", path: "/global-dialogue" },

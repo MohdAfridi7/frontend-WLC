@@ -9,8 +9,10 @@ import Home from "./Pages/Home";
 import OurWork from "./Pages/OurWork";
 import JoinConsortium from "./Pages/JoinConsortium";
 import NewsMedia from "./Pages/NewsMedia";
+import WLCBlogs from "./Pages/WLCBlogs";
 import BecomeMember from "./Pages/BecomeMember";
 import OurTeam from "./Pages/OurTeam";
+import AdvisoryCouncilar from "./Pages/AdvisoryCouncilar";
 import GlobalUpdates from "./Pages/GlobalUpdates";
 import GlobalDialogue from "./Pages/GlobalDialogue";
 import GlobalCouncils from "./Pages/GlobalCouncils";
@@ -44,8 +46,10 @@ function App() {
         <Route path="/our-work" element={<OurWork/>} />
         <Route path="/join-consortium" element={<JoinConsortium/>} />
         <Route path="/news-media" element={<NewsMedia/>} />
+         <Route path="/wlc-blogs" element={<WLCBlogs/>} />
         <Route path="/become-member" element={<BecomeMember/>} />
         <Route path="/our-team" element={<OurTeam/>} />
+        <Route path="/advisory-council" element={<AdvisoryCouncilar/>} />
         <Route path="/permanent-members" element={<Permanent/>} />
 
         <Route path="/global-updates" element={<GlobalUpdates/>} />

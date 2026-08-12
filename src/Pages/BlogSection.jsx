@@ -2,90 +2,89 @@
  * BlogSection.jsx
  * A fully self-contained premium "Articles & Columns" blog section.
  * React + Tailwind CSS + Framer Motion + Lucide React. No other files needed.
+ *
+ * >>> API WIRING NOTES <<<
+ * - Data now comes from your wlc-blog API (getAllBlogs / getBlogBySlug /
+ *   getBlogById / getRelatedBlogs) instead of the hardcoded RAW/BLOGS arrays.
+ * - Adjust the import path below ("./blogApi") to wherever you save the
+ *   file you shared (the one with createBlog/getAllBlogs/etc.).
+ * - normalizeBlog() maps whatever your backend returns onto the exact
+ *   shape this UI already expects (title, slug, date, author, category,
+ *   readingTime, coverImage, description, content, galleryImages, tags).
+ *   If your backend field names differ, tweak ONLY normalizeBlog() —
+ *   nothing else needs to change.
+ * - blog.content: this UI renders rich "blocks"
+ *   ({type:"paragraph"|"heading"|"subheading"|"list"|"quote"|"image", ...}).
+ *   If your API instead returns a plain HTML string in `content`, it is
+ *   automatically rendered as HTML (see the fallback in ArticleDetail).
  */
 
 import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronLeft, ChevronRight, ArrowRight, ArrowUpRight, CalendarDays,
-  Clock3, User2, Tag, X, Link2, Quote, Check,
+  Clock3, User2, Tag, X, Link2, Quote, Check, Loader2,
 } from "lucide-react";
 import { FaFacebookF, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
+import {
+  getAllBlogs,
+  getBlogBySlug,
+  getBlogById,
+  getRelatedBlogs,
+} from "../api/WLCblogRoutes"; // <-- adjust this path to match your project
+
 /* ------------------------------------------------------------------ */
-/*  1. BLOG DATA                                                       */
+/*  1. HELPERS + NORMALIZATION                                         */
 /* ------------------------------------------------------------------ */
 
+// Fallback placeholder image if a blog has no cover image from the API.
 const img = (seed, w = 1400, h = 900) => `https://picsum.photos/seed/${seed}/${w}/${h}`;
 
-const LOREM_A =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
-const LOREM_B =
-  "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.";
-const LOREM_C =
-  "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi.";
-
-const makeContent = (topic) => [
-  { type: "paragraph", text: `${LOREM_A}` },
-  { type: "paragraph", text: LOREM_B },
-  { type: "heading", text: `The Global Context of ${topic}` },
-  { type: "paragraph", text: LOREM_C },
-  {
-    type: "list",
-    items: [
-      "Multilateral cooperation as the foundation of durable policy outcomes.",
-      "Evidence-led governance frameworks measured against transparent indicators.",
-      "Long-horizon capital allocation aligned with institutional mandates.",
-      "Inclusive participation across public, private and civic institutions.",
-    ],
-  },
-  { type: "subheading", text: "A Framework for Measured Progress" },
-  { type: "paragraph", text: LOREM_A },
-  {
-    type: "quote",
-    text: "Institutions endure not because they resist change, but because they translate it into shared and measurable progress.",
-    cite: "World Leadership Congress, Plenary Address",
-  },
-  { type: "image", index: 0, caption: `Delegates convene during the ${topic} forum.` },
-  { type: "subheading", text: "Implementation and Accountability" },
-  { type: "paragraph", text: LOREM_B },
-  { type: "paragraph", text: LOREM_C },
-  { type: "image", index: 1, caption: "Working sessions on implementation frameworks." },
-  { type: "heading", text: "Outlook" },
-  { type: "paragraph", text: LOREM_A },
-];
-
-const RAW = [
-  ["Rethinking Multilateral Governance for a Fragmented Decade", "Governance", "Dr. Amara Okonjo", "Mar 12, 2026", "8 min read"],
-  ["The Quiet Economics of Climate Adaptation Finance", "Climate", "Henrik Lindqvist", "Mar 04, 2026", "11 min read"],
-  ["Human Capital and the Next Industrial Transition", "Economy", "Sofia Marchetti", "Feb 27, 2026", "6 min read"],
-  ["Digital Sovereignty and the Architecture of Trust", "Technology", "Rahul Mehta", "Feb 19, 2026", "9 min read"],
-  ["Leadership Under Uncertainty: Lessons From the Field", "Leadership", "Claire Dubois", "Feb 08, 2026", "7 min read"],
-  ["Food Systems, Fragility and the Politics of Supply", "Development", "Kwame Boateng", "Jan 30, 2026", "10 min read"],
-  ["Rebuilding Public Trust in Global Institutions", "Governance", "Elena Volkova", "Jan 22, 2026", "5 min read"],
-  ["Capital, Conscience and the Rise of Blended Finance", "Economy", "Michael Arden", "Jan 14, 2026", "12 min read"],
-  ["Urban Resilience in the Age of Extreme Weather", "Climate", "Ayaka Nishimura", "Dec 29, 2025", "8 min read"],
-  ["Artificial Intelligence and the Future of Public Policy", "Technology", "Daniel Rosenberg", "Dec 18, 2025", "9 min read"],
-  ["Health Equity as an Instrument of Global Stability", "Development", "Dr. Nadia Haddad", "Dec 05, 2025", "7 min read"],
-  ["The Diplomacy of Scarce Resources", "Leadership", "Tomás Herrera", "Nov 21, 2025", "10 min read"],
-];
-
-const BLOGS = RAW.map(([title, category, author, date, readingTime], i) => ({
-  id: i + 1,
-  title,
-  slug: title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
-  date,
-  author,
-  category,
-  readingTime,
-  coverImage: img(`article-${i + 1}`),
-  description:
-    "An institutional perspective on the forces reshaping policy, capital and cooperation across borders — and what leadership must do next.",
-  content: makeContent(category),
-  galleryImages: [img(`gallery-${i + 1}-a`, 1400, 800), img(`gallery-${i + 1}-b`, 1400, 800)],
-  tags: ["Policy", category, "Global Forum", "Insight"],
-}));
-
 const HERO_BG = img("congress-hero-bg", 1920, 1080);
+
+const formatDate = (value) => {
+  if (!value) return "";
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return String(value);
+  return d.toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" });
+};
+
+// Unwraps common API response envelopes: { data }, { blogs }, { blog }, or a raw array/object.
+const unwrap = (res, ...keys) => {
+  if (Array.isArray(res)) return res;
+  if (res && typeof res === "object") {
+    for (const k of keys) {
+      if (res[k] !== undefined) return res[k];
+    }
+    if (res.data !== undefined) return res.data;
+  }
+  return res;
+};
+
+/**
+ * Maps a raw blog object from the API to the shape this component expects.
+ * Adjust the right-hand side field names here if your backend differs.
+ */
+const normalizeBlog = (b = {}) => {
+  const id = b._id || b.id || b.slug;
+  const category =
+    (typeof b.category === "object" ? b.category?.name : b.category) || "General";
+  const author =
+    (typeof b.author === "object" ? b.author?.name : b.author) || "";
+
+  return {
+    id,
+    title: b.title || "Untitled",
+    slug: b.slug || String(id),
+    date: b.date || formatDate(b.createdAt || b.publishedAt || b.updatedAt),
+    category,
+    coverImage: b.coverImage || b.image || b.thumbnail || b.cover || img(`blog-${id}`),
+    description: b.description || b.excerpt || b.summary || "",
+    content: b.content ?? [],
+    galleryImages: b.galleryImages || b.images || b.gallery || [],
+    tags: Array.isArray(b.tags) ? b.tags : b.tags ? [b.tags] : [category],
+  };
+};
 
 /* ------------------------------------------------------------------ */
 /*  2. ANIMATION VARIANTS                                              */
@@ -106,7 +105,16 @@ const stagger = {
 /* ------------------------------------------------------------------ */
 
 export default function BlogSection() {
+  /* -------- blog list (from API) -------- */
+  const [blogs, setBlogs] = useState([]);
+  const [loadingBlogs, setLoadingBlogs] = useState(true);
+  const [blogsError, setBlogsError] = useState(null);
+
+  /* -------- selected / detail (from API) -------- */
   const [selectedBlog, setSelectedBlog] = useState(null);
+  const [detailLoading, setDetailLoading] = useState(false);
+  const [related, setRelated] = useState([]);
+
   const [copied, setCopied] = useState(false);
   const [perView, setPerView] = useState(4);
   const [index, setIndex] = useState(0);
@@ -116,6 +124,27 @@ export default function BlogSection() {
   const trackRef = useRef(null);
   const detailRef = useRef(null);
   const dragState = useRef({ down: false, startX: 0, moved: 0 });
+
+  /* -------- fetch all blogs on mount -------- */
+  useEffect(() => {
+    let active = true;
+    (async () => {
+      try {
+        setLoadingBlogs(true);
+        setBlogsError(null);
+        const res = await getAllBlogs();
+        const list = unwrap(res, "blogs", "results");
+        if (active) setBlogs((Array.isArray(list) ? list : []).map(normalizeBlog));
+      } catch (err) {
+        if (active) setBlogsError(err?.message || "Failed to load articles.");
+      } finally {
+        if (active) setLoadingBlogs(false);
+      }
+    })();
+    return () => {
+      active = false;
+    };
+  }, []);
 
   /* -------- responsive cards per view -------- */
   useEffect(() => {
@@ -134,8 +163,11 @@ export default function BlogSection() {
 
   /* -------- infinite loop: clone edges -------- */
   const loop = useMemo(
-    () => [...BLOGS.slice(-perView), ...BLOGS, ...BLOGS.slice(0, perView)],
-    [perView],
+    () =>
+      blogs.length
+        ? [...blogs.slice(-perView), ...blogs, ...blogs.slice(0, perView)]
+        : [],
+    [perView, blogs],
   );
   const offset = perView;
 
@@ -145,15 +177,16 @@ export default function BlogSection() {
   const prev = useCallback(() => setIndex((i) => i - 1), []);
 
   useEffect(() => {
-    if (index > BLOGS.length - 1) {
+    if (!blogs.length) return;
+    if (index > blogs.length - 1) {
       const t = setTimeout(() => { setAnimate(false); setIndex(0); }, 620);
       return () => clearTimeout(t);
     }
     if (index < 0) {
-      const t = setTimeout(() => { setAnimate(false); setIndex(BLOGS.length - 1); }, 620);
+      const t = setTimeout(() => { setAnimate(false); setIndex(blogs.length - 1); }, 620);
       return () => clearTimeout(t);
     }
-  }, [index]);
+  }, [index, blogs.length]);
 
   useEffect(() => {
     if (!animate) {
@@ -164,10 +197,10 @@ export default function BlogSection() {
 
   /* -------- autoplay + pause on hover -------- */
   useEffect(() => {
-    if (paused || dragging) return;
+    if (paused || dragging || blogs.length < 2) return;
     const id = setInterval(next, 4200);
     return () => clearInterval(id);
-  }, [paused, dragging, next]);
+  }, [paused, dragging, next, blogs.length]);
 
   /* -------- drag / swipe -------- */
   const onPointerDown = (e) => {
@@ -189,21 +222,43 @@ export default function BlogSection() {
 
   const cardClicked = () => Math.abs(dragState.current.moved) < 8;
 
-  const openBlog = (blog) => {
-    setSelectedBlog(blog);
+  /* -------- open a blog: show summary instantly, then fetch full detail + related -------- */
+  const openBlog = async (blogSummary) => {
+    setSelectedBlog(blogSummary);
+    setRelated([]);
     setTimeout(() => {
       detailRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 220);
+
+    setDetailLoading(true);
+    try {
+      let res;
+      try {
+        res = await getBlogBySlug(blogSummary.slug);
+      } catch {
+        res = await getBlogById(blogSummary.id);
+      }
+      const full = unwrap(res, "blog");
+      if (full) setSelectedBlog(normalizeBlog(full));
+    } catch (err) {
+      // keep showing the summary version if the detail fetch fails
+    } finally {
+      setDetailLoading(false);
+    }
+
+    try {
+      const relRes = await getRelatedBlogs(blogSummary.id);
+      const relList = unwrap(relRes, "blogs", "related");
+      setRelated((Array.isArray(relList) ? relList : []).map(normalizeBlog));
+    } catch (err) {
+      setRelated([]);
+    }
   };
 
-  const closeBlog = () => setSelectedBlog(null);
-
-  const related = useMemo(() => {
-    if (!selectedBlog) return [];
-    const sameCat = BLOGS.filter((b) => b.category === selectedBlog.category && b.id !== selectedBlog.id);
-    const others = BLOGS.filter((b) => b.category !== selectedBlog.category && b.id !== selectedBlog.id);
-    return [...sameCat, ...others].slice(0, 3);
-  }, [selectedBlog]);
+  const closeBlog = () => {
+    setSelectedBlog(null);
+    setRelated([]);
+  };
 
   const copyLink = () => {
     const url =
@@ -215,7 +270,7 @@ export default function BlogSection() {
     setTimeout(() => setCopied(false), 1800);
   };
 
-  const translate = `translateX(-${((index + offset) * 100) / perView}%)`;
+  const translate = `translateX(-${((index + offset) * 100) / (perView || 1)}%)`;
 
   return (
     <section
@@ -258,6 +313,20 @@ export default function BlogSection() {
         </motion.div>
 
         {/* ---------------- Carousel ---------------- */}
+        {loadingBlogs ? (
+          <div className="mt-16 flex items-center justify-center gap-3 py-20 text-slate-300">
+            <Loader2 className="h-5 w-5 animate-spin" />
+            <span className="text-sm uppercase tracking-[0.2em]">Loading articles…</span>
+          </div>
+        ) : blogsError ? (
+          <div className="mt-16 flex flex-col items-center justify-center gap-3 py-20 text-center text-slate-300">
+            <p className="text-sm">{blogsError}</p>
+          </div>
+        ) : blogs.length === 0 ? (
+          <div className="mt-16 flex items-center justify-center py-20 text-slate-300">
+            <p className="text-sm">No articles published yet.</p>
+          </div>
+        ) : (
         <div
           className="relative mt-14 sm:mt-16"
           onMouseEnter={() => setPaused(true)}
@@ -322,6 +391,7 @@ export default function BlogSection() {
             </button>
           </div>
         </div>
+        )}
 
         {/* ---------------- Detail panel ---------------- */}
         <div ref={detailRef} className="scroll-mt-8">
@@ -345,7 +415,13 @@ export default function BlogSection() {
                       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                       className="overflow-hidden rounded-[26px] border border-white/10 bg-white shadow-[0_40px_120px_-30px_rgba(0,0,0,0.75)]"
                     >
-                      <ArticleDetail blog={selectedBlog} onClose={closeBlog} copied={copied} onCopy={copyLink} />
+                      <ArticleDetail
+                        blog={selectedBlog}
+                        onClose={closeBlog}
+                        copied={copied}
+                        onCopy={copyLink}
+                        loading={detailLoading}
+                      />
 
                       {/* related */}
                       <div className="border-t border-slate-200/80 bg-[#f7f8fa] px-6 py-14 sm:px-10 lg:px-16">
@@ -356,6 +432,7 @@ export default function BlogSection() {
                           <h3 className="mt-3 font-serif text-2xl font-light tracking-tight text-slate-900 sm:text-3xl">
                             RELATED ARTICLES
                           </h3>
+                          {related.length > 0 && (
                           <motion.div
                             variants={stagger}
                             initial="hidden"
@@ -399,6 +476,7 @@ export default function BlogSection() {
                               </motion.button>
                             ))}
                           </motion.div>
+                          )}
 
                           <div className="mt-12 flex justify-center">
                             <button
@@ -450,9 +528,6 @@ function BlogCard({ blog, onOpen, active }) {
           className="h-full w-full object-cover transition-transform duration-[1000ms] ease-out group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-        <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-800 backdrop-blur">
-          {blog.category}
-        </span>
       </div>
 
       <div className="flex flex-1 flex-col p-6">
@@ -460,10 +535,6 @@ function BlogCard({ blog, onOpen, active }) {
           <span className="inline-flex items-center gap-1.5">
             <CalendarDays className="h-3.5 w-3.5" />
             {blog.date}
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <Clock3 className="h-3.5 w-3.5" />
-            {blog.readingTime}
           </span>
         </div>
 
@@ -490,12 +561,15 @@ function BlogCard({ blog, onOpen, active }) {
 /*  5. ARTICLE DETAIL                                                  */
 /* ------------------------------------------------------------------ */
 
-function ArticleDetail({ blog, onClose, copied, onCopy }) {
+function ArticleDetail({ blog, onClose, copied, onCopy, loading }) {
   const shares = [
-  { label: "Share on X", Icon: FaXTwitter },
-  { label: "Share on Facebook", Icon: FaFacebookF },
-  { label: "Share on LinkedIn", Icon: FaLinkedinIn },
-];
+    { label: "Share on X", Icon: FaXTwitter },
+    { label: "Share on Facebook", Icon: FaFacebookF },
+    { label: "Share on LinkedIn", Icon: FaLinkedinIn },
+  ];
+
+  const isBlockContent = Array.isArray(blog.content);
+  const galleryFallback = blog.galleryImages.length ? blog.galleryImages : [blog.coverImage, blog.coverImage];
 
   return (
     <div>
@@ -521,15 +595,16 @@ function ArticleDetail({ blog, onClose, copied, onCopy }) {
           <X className="h-5 w-5" />
         </button>
 
+        {loading && (
+          <div className="absolute left-5 top-5 z-10 flex h-11 items-center gap-2 rounded-full border border-white/30 bg-black/35 px-4 text-white backdrop-blur-md">
+            <Loader2 className="h-4 w-4 animate-spin" />
+            <span className="text-[11px] uppercase tracking-[0.16em]">Loading</span>
+          </div>
+        )}
+
         <div className="absolute inset-x-0 bottom-0 px-6 pb-8 sm:px-10 lg:px-16 lg:pb-12">
           <motion.div initial="hidden" animate="show" variants={stagger} className="mx-auto max-w-5xl">
-            <motion.span
-              variants={fadeUp}
-              className="inline-flex items-center gap-1.5 rounded-full bg-amber-400 px-3.5 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#0a1220]"
-            >
-              <Tag className="h-3 w-3" />
-              {blog.category}
-            </motion.span>
+            
             <motion.h3
               variants={fadeUp}
               className="mt-5 max-w-4xl font-serif text-2xl font-light leading-tight tracking-tight text-white sm:text-4xl lg:text-[2.85rem]"
@@ -540,9 +615,9 @@ function ArticleDetail({ blog, onClose, copied, onCopy }) {
               variants={fadeUp}
               className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-[12px] font-medium uppercase tracking-[0.16em] text-white/75"
             >
-              <span className="inline-flex items-center gap-1.5"><User2 className="h-3.5 w-3.5" /> {blog.author}</span>
+       
               <span className="inline-flex items-center gap-1.5"><CalendarDays className="h-3.5 w-3.5" /> {blog.date}</span>
-              <span className="inline-flex items-center gap-1.5"><Clock3 className="h-3.5 w-3.5" /> {blog.readingTime}</span>
+      
             </motion.div>
           </motion.div>
         </div>
@@ -553,73 +628,72 @@ function ArticleDetail({ blog, onClose, copied, onCopy }) {
         <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-[80px_1fr]">
           {/* sticky share rail */}
           <aside className="lg:sticky lg:top-8 lg:h-fit">
-            
-           
+
+
           </aside>
 
           <motion.div variants={stagger} initial="hidden" animate="show" className="min-w-0">
-            {blog.content.map((block, i) => (
-              <motion.div key={i} variants={fadeUp}>
-                {block.type === "paragraph" && (
-                  <p className="mb-6 text-[16.5px] leading-[1.85] text-slate-700">{block.text}</p>
-                )}
-                {block.type === "heading" && (
-                  <h4 className="mb-4 mt-12 font-serif text-2xl font-normal tracking-tight text-slate-900 sm:text-[28px]">
-                    {block.text}
-                  </h4>
-                )}
-                {block.type === "subheading" && (
-                  <h5 className="mb-3 mt-9 text-[13px] font-bold uppercase tracking-[0.2em] text-amber-700">
-                    {block.text}
-                  </h5>
-                )}
-                {block.type === "list" && (
-                  <ul className="mb-8 space-y-3 border-l-2 border-amber-400/60 pl-6">
-                    {block.items.map((it) => (
-                      <li key={it} className="relative text-[16px] leading-relaxed text-slate-700">{it}</li>
-                    ))}
-                  </ul>
-                )}
-                {block.type === "quote" && (
-                  <blockquote className="my-10 rounded-2xl bg-[#0a1220] px-8 py-9 text-white">
-                    <Quote className="h-7 w-7 text-amber-400" />
-                    <p className="mt-4 font-serif text-xl font-light italic leading-relaxed sm:text-2xl">
+            {isBlockContent ? (
+              blog.content.map((block, i) => (
+                <motion.div key={i} variants={fadeUp}>
+                  {block.type === "paragraph" && (
+                    <p className="mb-6 text-[16.5px] leading-[1.85] text-slate-700">{block.text}</p>
+                  )}
+                  {block.type === "heading" && (
+                    <h4 className="mb-4 mt-12 font-serif text-2xl font-normal tracking-tight text-slate-900 sm:text-[28px]">
                       {block.text}
-                    </p>
-                    <footer className="mt-5 text-[11px] font-semibold uppercase tracking-[0.22em] text-amber-300/80">
-                      {block.cite}
-                    </footer>
-                  </blockquote>
-                )}
-                {block.type === "image" && (
-                  <figure className="my-10 overflow-hidden rounded-2xl">
-                    <div className="overflow-hidden">
-                      <img
-                        src={blog.galleryImages[block.index]}
-                        alt={block.caption}
-                        loading="lazy"
-                        className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out hover:scale-105"
-                      />
-                    </div>
-                    <figcaption className="mt-3 text-center text-[12px] uppercase tracking-[0.16em] text-slate-500">
-                      {block.caption}
-                    </figcaption>
-                  </figure>
-                )}
-              </motion.div>
-            ))}
+                    </h4>
+                  )}
+                  {block.type === "subheading" && (
+                    <h5 className="mb-3 mt-9 text-[13px] font-bold uppercase tracking-[0.2em] text-amber-700">
+                      {block.text}
+                    </h5>
+                  )}
+                  {block.type === "list" && (
+                    <ul className="mb-8 space-y-3 border-l-2 border-amber-400/60 pl-6">
+                      {block.items.map((it) => (
+                        <li key={it} className="relative text-[16px] leading-relaxed text-slate-700">{it}</li>
+                      ))}
+                    </ul>
+                  )}
+                  {block.type === "quote" && (
+                    <blockquote className="my-10 rounded-2xl bg-[#0a1220] px-8 py-9 text-white">
+                      <Quote className="h-7 w-7 text-amber-400" />
+                      <p className="mt-4 font-serif text-xl font-light italic leading-relaxed sm:text-2xl">
+                        {block.text}
+                      </p>
+                      <footer className="mt-5 text-[11px] font-semibold uppercase tracking-[0.22em] text-amber-300/80">
+                        {block.cite}
+                      </footer>
+                    </blockquote>
+                  )}
+                  {block.type === "image" && (
+                    <figure className="my-10 overflow-hidden rounded-2xl">
+                      <div className="overflow-hidden">
+                        <img
+                          src={galleryFallback[block.index] || blog.coverImage}
+                          alt={block.caption}
+                          loading="lazy"
+                          className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out hover:scale-105"
+                        />
+                      </div>
+                      <figcaption className="mt-3 text-center text-[12px] uppercase tracking-[0.16em] text-slate-500">
+                        {block.caption}
+                      </figcaption>
+                    </figure>
+                  )}
+                </motion.div>
+              ))
+            ) : (
+              // Fallback: API returned plain HTML/string content instead of blocks
+              <motion.div
+                variants={fadeUp}
+                className="prose prose-slate mb-6 max-w-none text-[16.5px] leading-[1.85] text-slate-700 prose-headings:font-serif prose-headings:font-normal prose-headings:text-slate-900"
+                dangerouslySetInnerHTML={{ __html: blog.content || blog.description || "" }}
+              />
+            )}
 
-            {/* tags */}
-            <div className="mt-12 flex flex-wrap items-center gap-2.5 border-t border-slate-200 pt-8">
-              {blog.tags.map((t) => (
-                <span
-                  key={t}
-                  className="rounded-full bg-slate-100 px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.14em] text-slate-600"
-                >
-                  #{t}
-                </span>
-              ))}
-            </div>
+           
           </motion.div>
         </div>
       </div>

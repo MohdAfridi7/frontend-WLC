@@ -15,9 +15,12 @@ const menuItems = [
   { label: "Applications", icon: FiClipboard },
   { label: "Chapter Ambassadors", icon: FiUsers },
   { label: "Our Team", icon: FiUsers },
+    { label: "Advisory Chapter Ambassadors", icon: FiUsers },
+  { label: "Advisory Our Team", icon: FiUsers },
   { label: "Global Summits", icon: FiGlobe },
   { label: "Global Updates", icon: FiGlobe },
   { label: "GFETSC", icon: FiGlobe },
+  { label: "Advisory Blogs", icon: FiBookOpen },
   { label: "Blogs", icon: FiBookOpen },
   { label: "Contacts Data", icon: FiMail },
   { label: "Change Email", icon: FiMail },
@@ -55,7 +58,6 @@ function Sidebar({ onMenuClick, onLogout, activeContent }) {
               </button>
             </li>
           ))}
-
         </ul>
       </div>
 

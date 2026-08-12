@@ -4,12 +4,15 @@ import Sidebar from './Sidebar';
 import MobileSidebar from './MobileSidebar';
 import { AnimatePresence } from 'framer-motion';
 import { FiMenu } from 'react-icons/fi';
+import WLCAdminBlogs from './dashboardSection/WLCblogTab/AdminBlogs';
 import AdminBlogs from './dashboardSection/blogTab/AdminBlogs';
 import ViewContact from './dashboardSection/contactTab/ViewContact';
 import DashboardOverview from "./DashboardOverview"
 import Applications from './ApplicationsPage';
 import ChapterAmbassadors from './Chapterambassadorpage';
 import OurTeam from './TeamPages';
+import WLCChapterAmbassadors from './WLCChapterambassadorpage';
+import WLCOurTeam from './WLCTeamPages';
 import GlobalUpdates from './GlobalUpdates';
 import GlobalSummits from './Summitpage';
 import ChangeEmail from './dashboardSection/changeEmailTab/ChnageEmail';
@@ -65,12 +68,18 @@ const navigate = useNavigate();
         return <ChapterAmbassadors/>;
           case 'Our Team':
         return <OurTeam/>;
+      case 'Advisory Chapter Ambassadors':
+        return <WLCChapterAmbassadors/>;
+          case 'Advisory Our Team':
+        return <WLCOurTeam/>;
          case 'Global Summits':
         return <GlobalSummits/>;
            case 'Global Updates':
         return <GlobalUpdates/>;
         case 'GFETSC':
         return <GfetscPage/>;
+         case 'Advisory Blogs':
+        return <WLCAdminBlogs/>;
         case 'Blogs':
         return <AdminBlogs/>;
       case 'Contacts Data':
