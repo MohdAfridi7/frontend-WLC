@@ -312,7 +312,7 @@ export default function AdminBlogs() {
   src={featured.image}
   alt={featured.title}
   loading="lazy"
-  className="absolute inset-0 h-full w-full object-cover grayscale-[15%] transition-all duration-[900ms] ease-out group-hover:scale-[1.04] group-hover:grayscale-0"
+  className="absolute inset-0 h-full w-full object-cover object-top grayscale-[15%] transition-all duration-[900ms] ease-out group-hover:scale-[1.04] group-hover:grayscale-0"
 />
                 ) : (
                   <div className="flex h-full w-full items-center justify-center bg-slate-800">
@@ -375,7 +375,7 @@ export default function AdminBlogs() {
                       src={p.image}
                       alt={p.title}
                       loading="lazy"
-                      className="h-full w-full object-cover grayscale-[20%] transition-all duration-700 ease-out group-hover:scale-[1.06] group-hover:grayscale-0"
+                      className="h-full w-full object-cover object-top grayscale-[20%] transition-all duration-700 ease-out group-hover:scale-[1.06] group-hover:grayscale-0"
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center bg-slate-100">

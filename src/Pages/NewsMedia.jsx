@@ -335,7 +335,7 @@ function ListView({ posts, hasMore, onShowMore, onOpen }) {
   src={featured.image}
   alt={featured.title}
   loading="lazy"
-  className="absolute inset-0 h-full w-full object-cover grayscale-[15%] transition-all duration-[900ms] ease-out group-hover:scale-[1.04] group-hover:grayscale-0"
+  className="absolute inset-0 h-full w-full object-cover object-top grayscale-[15%] transition-all duration-[900ms] ease-out group-hover:scale-[1.04] group-hover:grayscale-0"
 />
               <div className="absolute inset-0 bg-gradient-to-tr from-slate-900/60 via-slate-900/10 to-transparent" />
               <div className="absolute bottom-4 left-4 font-display text-[100px] leading-none text-white/20">
@@ -390,7 +390,7 @@ function ListView({ posts, hasMore, onShowMore, onOpen }) {
                 src={p.image}
                 alt={p.title}
                 loading="lazy"
-                className="h-full w-full object-cover grayscale-[20%] transition-all duration-700 ease-out group-hover:scale-[1.06] group-hover:grayscale-0"
+                className="h-full w-full object-cover object-top grayscale-[20%] transition-all duration-700 ease-out group-hover:scale-[1.06] group-hover:grayscale-0"
               />
             </div>
 
@@ -471,7 +471,7 @@ function DetailView({ post, related, relatedLoading, onBack, onOpen }) {
   <img
     src={post.image}
     alt={post.title}
-    className="h-[250px] sm:h-[350px] md:h-[500px] w-full object-cover"
+    className="h-[250px] sm:h-[350px] md:h-[500px] w-full object-cover object-top"
   />
 </div>
 

@@ -206,9 +206,9 @@ export default function NewsMedia() {
           className="mb-12 sm:mb-16"
         >
           <h1 className="font-display text-5xl font-normal leading-[0.95] tracking-tight text-slate-900 sm:text-6xl md:text-7xl lg:text-[104px]">
-            Featured
+            WLC
             <br />
-            Articles <span className="italic text-blue-600">&amp;</span> Columns
+            Global <span className="italic text-blue-600">Activities</span>
           </h1>
           <p className="mt-6 max-w-xl font-sans text-sm leading-relaxed text-slate-600 sm:text-base">
             Perspectives on global affairs, diplomacy, and the ideas shaping our
@@ -335,7 +335,7 @@ function ListView({ posts, hasMore, onShowMore, onOpen }) {
   src={featured.image}
   alt={featured.title}
   loading="lazy"
-  className="absolute inset-0 h-full w-full object-cover grayscale-[15%] transition-all duration-[900ms] ease-out group-hover:scale-[1.04] group-hover:grayscale-0"
+  className="absolute inset-0 h-full w-full object-cover object-top grayscale-[15%] transition-all duration-[900ms] ease-out group-hover:scale-[1.04] group-hover:grayscale-0"
 />
               <div className="absolute inset-0 bg-gradient-to-tr from-slate-900/60 via-slate-900/10 to-transparent" />
               <div className="absolute bottom-4 left-4 font-display text-[100px] leading-none text-white/20">
@@ -390,7 +390,7 @@ function ListView({ posts, hasMore, onShowMore, onOpen }) {
                 src={p.image}
                 alt={p.title}
                 loading="lazy"
-                className="h-full w-full object-cover grayscale-[20%] transition-all duration-700 ease-out group-hover:scale-[1.06] group-hover:grayscale-0"
+                className="h-full w-full object-cover object-top grayscale-[20%] transition-all duration-700 ease-out group-hover:scale-[1.06] group-hover:grayscale-0"
               />
             </div>
 
@@ -471,7 +471,7 @@ function DetailView({ post, related, relatedLoading, onBack, onOpen }) {
   <img
     src={post.image}
     alt={post.title}
-    className="h-[250px] sm:h-[350px] md:h-[500px] w-full object-cover"
+    className="h-[250px] sm:h-[350px] md:h-[500px] w-full object-cover object-top"
   />
 </div>
 
