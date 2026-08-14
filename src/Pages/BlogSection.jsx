@@ -525,7 +525,7 @@ function BlogCard({ blog, onOpen, active }) {
           alt={blog.title}
           draggable="false"
           loading="lazy"
-          className="h-full w-full object-cover transition-transform duration-[1000ms] ease-out group-hover:scale-110"
+          className="h-full w-full object-cover object-top transition-transform duration-[1000ms] ease-out group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       </div>
@@ -582,7 +582,7 @@ function ArticleDetail({ blog, onClose, copied, onCopy, loading }) {
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
           src={blog.coverImage}
           alt={blog.title}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover object-top"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/20" />
 

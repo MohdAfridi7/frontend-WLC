@@ -1,0 +1,41 @@
+name: Deploy WLC Frontend
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SSH and Deploy WLC Frontend
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+
+          script: |
+
+            cd /var/www/wlc/frontend
+
+            # Latest Code
+            git fetch origin
+            git reset --hard origin/main
+
+            # Create .env
+            echo "VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}" > .env
+
+            # Install Dependencies
+            rm -rf node_modules
+            npm install
+
+            # Build Project
+            npm run build
+
+            # Restart PM2
+            pm2 delete wlc-frontend || true
+            pm2 serve dist 3052 --name "wlc-frontend" --spa
+
+            pm2 save

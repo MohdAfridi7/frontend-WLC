@@ -21,6 +21,7 @@ const exploreLinks = [
   { name: "About Us", path: "/about-us" },
   { name: "Our Work", path: "/our-work" },
   { name: "Our Team", path: "/our-team" },
+   { name: "Advisory Council", path: "/advisory-council" },
   { name: "Contact Us", path: "/contact-us" },
 ];
 
@@ -36,6 +37,7 @@ const programLinks = [
 
 const resourceLinks = [
   { name: "News & Media", path: "/news-media" },
+   { name: "WLC Global Blogs", path: "/wlc-blogs" },
   { name: "Global Updates", path: "/global-updates" },
   { name: "World Book Of Laureates", path: "/world-book-laureates" },
   { name: "GFETSC", path: "/gfetsc" },
