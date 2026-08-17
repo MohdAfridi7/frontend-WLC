@@ -7,7 +7,6 @@ import { FiMenu } from 'react-icons/fi';
 import WLCAdminBlogs from './dashboardSection/WLCblogTab/AdminBlogs';
 import AdminBlogs from './dashboardSection/blogTab/AdminBlogs';
 import ViewContact from './dashboardSection/contactTab/ViewContact';
-import DashboardOverview from "./DashboardOverview"
 import Applications from './ApplicationsPage';
 import ChapterAmbassadors from './Chapterambassadorpage';
 import OurTeam from './TeamPages';
@@ -60,10 +59,8 @@ const navigate = useNavigate();
   // Render content based on activeContent
   const renderContent = () => {
     switch (activeContent) {
-      case 'Overview':
-        return <DashboardOverview onNavigate={handleMenuClick} />;
       case 'Applications':
-        return <Applications/>;
+        return <Applications onNavigate={handleMenuClick} />;
         case 'Chapter Ambassadors':
         return <ChapterAmbassadors/>;
           case 'Our Team':
@@ -87,7 +84,7 @@ const navigate = useNavigate();
         case 'Change Email':
         return <ChangeEmail/>;
       default:
-        return <DashboardOverview onNavigate={handleMenuClick} />; // Fallback to Home
+        return <Applications onNavigate={handleMenuClick} />; // Fallback to Home
     }
   };
 

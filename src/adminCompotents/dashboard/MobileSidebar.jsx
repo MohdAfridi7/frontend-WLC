@@ -13,7 +13,6 @@ import {
 import logo from "../../assets/logo.png";
 
 const menuItems = [
-  { label: "Overview", icon: FiHome },
   { label: "Applications", icon: FiClipboard },
   { label: "Chapter Ambassadors", icon: FiUsers },
   { label: "Our Team", icon: FiUsers },
