@@ -11,6 +11,9 @@ import {
   Briefcase,
   Globe,
   MessageSquare,
+  ChevronDown,
+  Landmark,
+  Users,
 } from "lucide-react";
 import { submitApplication } from "../api/applicationRoutes";
 // ^ update this import path to wherever submitApplication lives
@@ -20,6 +23,27 @@ const inputBase =
 
 const labelBase =
   "absolute left-1 top-2 text-xs text-gray-500 transition-all duration-300 peer-placeholder-shown:top-6 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 peer-focus:top-2 peer-focus:text-xs peer-focus:text-[#4F6EF7] pointer-events-none";
+
+// List of councils (from screenshot)
+const COUNCIL_OPTIONS = [
+  "Council on Youth Leadership & Innovation",
+  "Council on Health, Mental Wellbeing & Public Policy",
+  "Council on Entrepreneurship & Business Strategy",
+  "Council on Finance, Investment & Impact Capital",
+  "Council on Digital Transformation & AI Governance",
+  "Council on Education & Skill Development",
+  "Council on Future of Work & Employment",
+  "Council on Climate Action & Sustainability",
+  "Council on Global Diplomacy & Peacebuilding",
+  "Council on Infrastructure, Urbanisation & Smart Cities",
+  "Council on Women & Gender Equality",
+  "Council on Human Rights & Social Justice",
+  "Council on Indigenous Voices & Cultural Heritage",
+  "Council on Media, Communications & Global Narrative",
+];
+
+// Membership type options
+const MEMBERSHIP_TYPE_OPTIONS = ["Individual", "Institutional"];
 
 // Defined outside ApplyNow so it isn't recreated (and remounted) on every keystroke
 const FloatingInput = ({ id, type = "text", label, icon: Icon, required, value, onChange, disabled }) => (
@@ -47,6 +71,44 @@ const FloatingInput = ({ id, type = "text", label, icon: Icon, required, value, 
   </div>
 );
 
+// Same visual language as FloatingInput, but for <select> dropdowns
+const FloatingSelect = ({ id, label, icon: Icon, required, value, onChange, disabled, options }) => (
+  <div className="relative group">
+    <div className="flex items-end gap-3">
+      <Icon
+        size={18}
+        className="mb-3 text-gray-400 group-focus-within:text-[#4F6EF7] transition-colors duration-300"
+      />
+      <div className="relative flex-1">
+        <select
+          id={id}
+          value={value}
+          onChange={onChange}
+          disabled={disabled}
+          className={`${inputBase} appearance-none pr-7 cursor-pointer disabled:cursor-not-allowed`}
+        >
+          <option value="" disabled hidden></option>
+          {options.map((opt) => (
+            <option key={opt} value={opt}>
+              {opt}
+            </option>
+          ))}
+        </select>
+        <ChevronDown
+          size={16}
+          className="absolute right-1 bottom-3 text-gray-400 pointer-events-none transition-colors duration-300 group-focus-within:text-[#4F6EF7]"
+        />
+        <label
+          htmlFor={id}
+          className={value ? "absolute left-1 top-2 text-xs text-[#4F6EF7]" : labelBase}
+        >
+          {label} {required && <span className="text-[#4F6EF7]">*</span>}
+        </label>
+      </div>
+    </div>
+  </div>
+);
+
 const ApplyNow = () => {
   const [form, setForm] = useState({
     name: "",
@@ -56,6 +118,8 @@ const ApplyNow = () => {
     designation: "",
     country: "",
     message: "",
+    council: "",
+    membershipType: "",
   });
   const [resumeFile, setResumeFile] = useState(null);
   const [fileName, setFileName] = useState("");
@@ -67,40 +131,48 @@ const ApplyNow = () => {
     setForm((prev) => ({ ...prev, [id]: value }));
   };
 
-const handleFileChange = (e) => {
-  const file = e.target.files[0];
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
 
-  if (!file) return;
+    if (!file) return;
 
-  const allowedTypes = [
-    "application/pdf",
-    "application/msword",
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-  ];
+    const allowedTypes = [
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ];
 
-  if (!allowedTypes.includes(file.type)) {
-    toast.error("Only PDF, DOC and DOCX files are allowed");
-    e.target.value = "";
-    return;
-  }
+    if (!allowedTypes.includes(file.type)) {
+      toast.error("Only PDF, DOC and DOCX files are allowed");
+      e.target.value = "";
+      return;
+    }
 
-  const maxSize = 5 * 1024 * 1024; // 5MB
+    const maxSize = 5 * 1024 * 1024; // 5MB
 
-  if (file.size > maxSize) {
-    toast.error("Resume size must be less than 5MB");
-    e.target.value = "";
-    return;
-  }
+    if (file.size > maxSize) {
+      toast.error("Resume size must be less than 5MB");
+      e.target.value = "";
+      return;
+    }
 
-  setResumeFile(file);
-  setFileName(file.name);
-  setFileCount(1);
-};
+    setResumeFile(file);
+    setFileName(file.name);
+    setFileCount(1);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.name || !form.phone || !form.email || !form.organisation || !form.country) {
+    if (
+      !form.name ||
+      !form.phone ||
+      !form.email ||
+      !form.organisation ||
+      !form.country ||
+      !form.council ||
+      !form.membershipType
+    ) {
       toast.error("Please fill all required fields.");
       return;
     }
@@ -122,6 +194,8 @@ const handleFileChange = (e) => {
         designation: "",
         country: "",
         message: "",
+        council: "",
+        membershipType: "",
       });
       setResumeFile(null);
       setFileName("");
@@ -170,6 +244,28 @@ const handleFileChange = (e) => {
 
             {/* Right Side */}
             <div className="space-y-8 flex flex-col">
+              <FloatingSelect
+                id="membershipType"
+                label="Type of Membership"
+                icon={Users}
+                required
+                value={form.membershipType}
+                onChange={handleChange}
+                disabled={submitting}
+                options={MEMBERSHIP_TYPE_OPTIONS}
+              />
+
+              <FloatingSelect
+                id="council"
+                label="Choose Among Our Councils"
+                icon={Landmark}
+                required
+                value={form.council}
+                onChange={handleChange}
+                disabled={submitting}
+                options={COUNCIL_OPTIONS}
+              />
+
               <FloatingInput id="country" label="Country" icon={Globe} required value={form.country} onChange={handleChange} disabled={submitting} />
 
               {/* Message */}
@@ -227,7 +323,6 @@ const handleFileChange = (e) => {
             {/* Divider */}
             <div className="lg:col-span-2 mt-4 pt-8 border-t border-gray-100">
               {/* Captcha */}
-          
 
               {/* Button */}
               <div className="flex justify-center mt-8">

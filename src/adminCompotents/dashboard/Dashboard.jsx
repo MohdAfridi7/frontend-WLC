@@ -6,7 +6,7 @@ import { AnimatePresence } from 'framer-motion';
 import { FiMenu } from 'react-icons/fi';
 import WLCAdminBlogs from './dashboardSection/WLCblogTab/AdminBlogs';
 import AdminBlogs from './dashboardSection/blogTab/AdminBlogs';
-import ViewContact from './dashboardSection/contactTab/ViewContact';
+import ViewContact from './dashboardSection/contactTab/ViewContact';  
 import Applications from './ApplicationsPage';
 import ChapterAmbassadors from './Chapterambassadorpage';
 import OurTeam from './TeamPages';

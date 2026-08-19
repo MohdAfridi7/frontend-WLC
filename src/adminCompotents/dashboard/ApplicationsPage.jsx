@@ -16,6 +16,8 @@ import {
   Inbox,
   RefreshCw,
   MessageSquare,
+  Landmark,
+  Users,
 } from "lucide-react";
 import { getAllApplications, deleteApplication } from "../../api/applicationRoutes";
 // ^ update this import path to wherever getAllApplications/deleteApplication live
@@ -210,9 +212,19 @@ const handleDownload = (app) => {
                         <div className="flex items-center gap-1 text-xs text-slate-400">
                           <Mail className="h-3 w-3" /> {app.email}
                         </div>
+                        {app.membershipType && (
+                          <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-0.5 text-[10px] font-medium text-indigo-600">
+                            <Users className="h-3 w-3" /> {app.membershipType}
+                          </span>
+                        )}
                       </td>
                       <td className="px-4 py-3 text-slate-600">
                         {app.organisation || "—"}
+                        {app.council && (
+                          <div className="mt-0.5 flex items-center gap-1 text-xs text-slate-400">
+                            <Landmark className="h-3 w-3" /> {app.council}
+                          </div>
+                        )}
                       </td>
                       <td className="px-4 py-3 text-slate-600">{app.country || "—"}</td>
                       <td className="px-4 py-3 text-slate-500">
@@ -325,6 +337,16 @@ const handleDownload = (app) => {
                         <Globe2 className="h-3.5 w-3.5" /> {app.country}
                       </div>
                     )}
+                    {app.membershipType && (
+                      <div className="flex items-center gap-1.5">
+                        <Users className="h-3.5 w-3.5" /> {app.membershipType}
+                      </div>
+                    )}
+                    {app.council && (
+                      <div className="flex items-center gap-1.5">
+                        <Landmark className="h-3.5 w-3.5" /> {app.council}
+                      </div>
+                    )}
                     <div className="flex items-center gap-1.5">
                       <Calendar className="h-3.5 w-3.5" /> {formatDate(app.createdAt)}
                     </div>
@@ -435,6 +457,16 @@ const handleDownload = (app) => {
               {detailApp.country && (
                 <div className="flex items-center gap-2">
                   <Globe2 className="h-4 w-4 text-slate-400" /> {detailApp.country}
+                </div>
+              )}
+              {detailApp.membershipType && (
+                <div className="flex items-center gap-2">
+                  <Users className="h-4 w-4 text-slate-400" /> {detailApp.membershipType}
+                </div>
+              )}
+              {detailApp.council && (
+                <div className="flex items-center gap-2">
+                  <Landmark className="h-4 w-4 text-slate-400" /> {detailApp.council}
                 </div>
               )}
             </div>

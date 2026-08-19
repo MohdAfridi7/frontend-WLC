@@ -266,11 +266,10 @@ const Footer = () => {
           </span>
           <div className="flex items-center gap-3">
             {[
-  { Icon: FaLinkedinIn, href: "#" },
-  { Icon: FaXTwitter, href: "#" },
-  { Icon: FaInstagram, href: "#" },
-  { Icon: FaFacebookF, href: "#" },
-  { Icon: FaYoutube, href: "#" },
+  { Icon: FaLinkedinIn, href: "https://www.linkedin.com/company/worldleadersconsortium/?originalSubdomain=uk" },
+  { Icon: FaInstagram, href: "https://www.instagram.com/worldleadersconsortium" },
+  { Icon: FaFacebookF, href: "https://www.facebook.com/people/World-Leaders-Consortium/61575084506451" },
+  { Icon: FaYoutube, href: "https://www.youtube.com/@worldleadersconsortium" },
 ].map(({ Icon, href }, i) => (
   <a
     key={i}
