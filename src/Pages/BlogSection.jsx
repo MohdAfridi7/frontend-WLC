@@ -76,7 +76,9 @@ const normalizeBlog = (b = {}) => {
     id,
     title: b.title || "Untitled",
     slug: b.slug || String(id),
-    date: b.date || formatDate(b.createdAt || b.publishedAt || b.updatedAt),
+ date: formatDate(
+  b.postDate || b.date || b.publishedAt || b.createdAt || b.updatedAt
+),
     category,
     coverImage: b.coverImage || b.image || b.thumbnail || b.cover || img(`blog-${id}`),
     description: b.description || b.excerpt || b.summary || "",
