@@ -132,7 +132,7 @@ const Footer = () => {
             {/* Contact rows */}
             <div className="mt-8 grid max-w-lg grid-cols-1 gap-4 sm:grid-cols-2">
               <a
-                href="tel:8340581166"
+                href="tel:+447436387718"
                 className="group flex items-start gap-3 border border-white/15 bg-white/5 p-4 transition hover:border-white/40 hover:bg-white/10"
               >
                 <Phone size={18} className="mt-1 text-[#B6C1FF]" />
@@ -140,7 +140,7 @@ const Footer = () => {
                   <span className="block text-[10px] uppercase tracking-[0.3em] text-white/60">
                     Call Us
                   </span>
-                  <span className="block text-sm font-medium">8340581166</span>
+                  <span className="block text-sm font-medium">+44 7436 387718</span>
                 </div>
               </a>
               <a

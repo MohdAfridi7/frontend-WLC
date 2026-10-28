@@ -319,7 +319,7 @@ export default function ContactSection() {
                     </div>
                     <div className="mt-4 text-[11px] font-semibold uppercase tracking-[3px] text-gray-500">Address</div>
                     <div className="mt-1 font-serif text-gray-800 text-[15px] leading-snug">
-                      61 Bridge Street<br />Kington HR5 3DJ, UK
+                      35 Durban road <br />London E15 3BW
                     </div>
                   </div>
 
